@@ -1,0 +1,34 @@
+query getBrands ($id:ID) {
+  brands (filters:{id:{eq:$id}}) {
+    data{
+      id
+      attributes{
+        name
+        slug
+        image{
+          data{
+            attributes{
+              ...Image
+            }
+          }
+        }
+        categories{
+          data{
+            id
+            attributes{
+              name
+              slug
+            }
+          }
+        }
+        products{
+          data{
+            attributes{
+              ...Product
+            }
+          }
+        }
+      }
+    }
+  }
+}

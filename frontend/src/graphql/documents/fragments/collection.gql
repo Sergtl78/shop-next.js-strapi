@@ -1,0 +1,11 @@
+fragment Collection on Collection{
+  name
+  discount
+  icon{
+    data{
+      attributes{
+        ...Image
+      }
+    }
+  }
+}

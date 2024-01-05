@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_section_slider_promos",
+  "info": {
+    "displayName": "SliderPromo"
+  },
+  "options": {},
+  "attributes": {
+    "slide": {
+      "type": "component",
+      "repeatable": true,
+      "component": "element.slide-promo"
+    }
+  }
+}

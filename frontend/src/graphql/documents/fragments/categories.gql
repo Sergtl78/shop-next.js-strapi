@@ -1,0 +1,21 @@
+fragment Categories on ComponentSectionCategories{
+  id
+  title
+  description
+  categories{
+    data{
+      id
+      attributes{
+        name
+        slug
+        image{
+          data{
+            attributes{
+              ...Image
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+query getGlobal {
+  global{
+    data{
+      attributes{
+        seo{
+          ...Seo
+        }
+        menu{
+          ...Link
+        }
+        social{
+          ...Link
+        }
+        service{
+          ...Link
+        }
+      }
+    }
+  }
+}

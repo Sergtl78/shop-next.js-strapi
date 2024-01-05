@@ -4,7 +4,8 @@
   "info": {
     "singularName": "global",
     "pluralName": "globals",
-    "displayName": "Global"
+    "displayName": "Global",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,6 +16,21 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.seo"
+    },
+    "menu": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "social": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "service": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
     }
   }
 }

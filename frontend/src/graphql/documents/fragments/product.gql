@@ -1,0 +1,31 @@
+fragment Product on Product{
+  name
+  slug
+  description
+  price
+  rating
+  image{
+    data{
+      attributes{
+        ...Image
+      }
+    }
+  }
+  collection{
+    data{
+      attributes{
+        ...Collection
+      }
+    }
+  }
+  brand{
+    data{
+      id
+    }
+  }
+  category{
+    data{
+      id
+    }
+  }
+}

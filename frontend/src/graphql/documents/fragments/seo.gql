@@ -1,0 +1,25 @@
+fragment Seo on ComponentSharedSeo{
+  metaTitle
+  metaDescription
+  metaImage{
+    data{
+      id
+      attributes{
+        ...Image
+      }
+    }
+  }
+  metaSocial{
+    socialNetwork
+    title
+    description
+    image{
+      data{
+        attributes{
+          ...Image
+        }
+      }
+    }
+  }
+  keywords
+}

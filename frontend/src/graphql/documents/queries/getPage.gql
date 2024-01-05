@@ -1,0 +1,23 @@
+query getPages ($slug:String!) {
+  pages(filters:{slug:{eq:$slug}}){
+    data{
+      attributes{
+        title
+        slug
+        seo{
+          metaTitle
+          metaDescription
+          keywords
+        }
+        sections{
+         __typename
+        ...Header
+        ...PromoSlider
+        ...SliderCollection
+        ...RichText
+        ...Categories
+        }
+      }
+    }
+  }
+}

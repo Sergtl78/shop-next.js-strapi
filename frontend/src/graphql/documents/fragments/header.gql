@@ -1,0 +1,4 @@
+fragment Header on ComponentSectionHeader{
+  id
+  title
+}

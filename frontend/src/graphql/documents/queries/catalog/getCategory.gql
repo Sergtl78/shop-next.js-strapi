@@ -1,0 +1,19 @@
+query getCategory($id:ID){
+  category(id:$id){
+    data{
+      id
+      attributes{
+        name
+        slug
+        products{
+          data{
+            id
+            attributes{
+              ...Product
+            }
+          }
+        }
+      }
+    }
+  }
+}

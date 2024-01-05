@@ -1,0 +1,30 @@
+query getCategories {
+  categories{
+    data{
+      id
+      attributes{
+        name
+        slug
+        products{
+          data{
+            id
+          }
+        }
+        sub_categories{
+          data{
+            id
+            attributes{
+              name
+              slug
+              products{
+                data{
+                  id
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

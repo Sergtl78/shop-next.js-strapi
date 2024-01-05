@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_section_slider_collections",
+  "info": {
+    "displayName": "SliderCollection"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "collection": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::collection.collection"
+    }
+  }
+}

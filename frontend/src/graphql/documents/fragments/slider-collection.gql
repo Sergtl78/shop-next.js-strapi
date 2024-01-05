@@ -1,0 +1,21 @@
+fragment SliderCollection on ComponentSectionSliderCollection{
+  id
+  title
+  description
+  collection{
+    data{
+      id
+      attributes{
+        ...Collection
+        
+        products{
+          data{
+            attributes{
+              ...Product
+            }
+          }
+        }
+      }
+    }
+  }
+}

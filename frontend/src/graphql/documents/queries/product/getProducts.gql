@@ -1,0 +1,36 @@
+query getProducts (
+  $page:Int,
+  $pageSize:Int,
+  $start:Int,
+  $limit:Int,
+  $categoryId:ID,
+  $sub_categoryID:ID ){
+  products(
+    pagination:{
+      page:$page
+      pageSize:$pageSize
+      start:$start
+      limit:$limit
+    }
+    filters:{
+     category:{id:{eq:$categoryId}}
+     sub_category:{id:{eq:$sub_categoryID}}
+  
+  }){
+    meta{
+      pagination{
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+ 
+    data{
+      id
+      attributes{
+        ...Product
+      }
+    }
+  }  
+}

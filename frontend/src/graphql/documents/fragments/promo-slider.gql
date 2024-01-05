@@ -1,0 +1,17 @@
+fragment PromoSlider on ComponentSectionSliderPromo{
+  id
+  slide{
+    id
+    title
+    description
+    link
+    image{
+      data{
+        id
+        attributes{
+          ...Image
+        }
+      }
+    }
+  }
+}

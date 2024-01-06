@@ -18,6 +18,23 @@ fragment Product on Product{
       }
     }
   }
+  color{
+    data{
+      id
+      attributes{
+        title
+      }
+    }
+  }
+  memory{
+    data{
+      id
+      attributes{
+        value
+        title
+      }
+    }
+  }
   brand{
     data{
       id

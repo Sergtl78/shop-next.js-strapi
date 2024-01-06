@@ -2306,6 +2306,26 @@ export type ProductFragment = {
       } | null
     } | null
   } | null
+  color?: {
+    __typename?: 'ColorEntityResponse'
+    data?: {
+      __typename?: 'ColorEntity'
+      id?: string | null
+      attributes?: { __typename?: 'Color'; title: string } | null
+    } | null
+  } | null
+  memory?: {
+    __typename?: 'MemoryEntityResponse'
+    data?: {
+      __typename?: 'MemoryEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Memory'
+        value: number
+        title: string
+      } | null
+    } | null
+  } | null
   brand?: {
     __typename?: 'BrandEntityResponse'
     data?: { __typename?: 'BrandEntity'; id?: string | null } | null
@@ -2409,6 +2429,7 @@ export type SliderCollectionFragment = {
           __typename?: 'ProductRelationResponseCollection'
           data: Array<{
             __typename?: 'ProductEntity'
+            id?: string | null
             attributes?: {
               __typename?: 'Product'
               name: string
@@ -2452,6 +2473,26 @@ export type SliderCollectionFragment = {
                         } | null
                       } | null
                     } | null
+                  } | null
+                } | null
+              } | null
+              color?: {
+                __typename?: 'ColorEntityResponse'
+                data?: {
+                  __typename?: 'ColorEntity'
+                  id?: string | null
+                  attributes?: { __typename?: 'Color'; title: string } | null
+                } | null
+              } | null
+              memory?: {
+                __typename?: 'MemoryEntityResponse'
+                data?: {
+                  __typename?: 'MemoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Memory'
+                    value: number
+                    title: string
                   } | null
                 } | null
               } | null
@@ -2579,6 +2620,26 @@ export type GetBrandsQuery = {
                   } | null
                 } | null
               } | null
+              color?: {
+                __typename?: 'ColorEntityResponse'
+                data?: {
+                  __typename?: 'ColorEntity'
+                  id?: string | null
+                  attributes?: { __typename?: 'Color'; title: string } | null
+                } | null
+              } | null
+              memory?: {
+                __typename?: 'MemoryEntityResponse'
+                data?: {
+                  __typename?: 'MemoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Memory'
+                    value: number
+                    title: string
+                  } | null
+                } | null
+              } | null
               brand?: {
                 __typename?: 'BrandEntityResponse'
                 data?: { __typename?: 'BrandEntity'; id?: string | null } | null
@@ -2702,6 +2763,26 @@ export type GetCategoryQuery = {
                         } | null
                       } | null
                     } | null
+                  } | null
+                } | null
+              } | null
+              color?: {
+                __typename?: 'ColorEntityResponse'
+                data?: {
+                  __typename?: 'ColorEntity'
+                  id?: string | null
+                  attributes?: { __typename?: 'Color'; title: string } | null
+                } | null
+              } | null
+              memory?: {
+                __typename?: 'MemoryEntityResponse'
+                data?: {
+                  __typename?: 'MemoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Memory'
+                    value: number
+                    title: string
                   } | null
                 } | null
               } | null
@@ -2879,6 +2960,7 @@ export type GetPagesQuery = {
                       __typename?: 'ProductRelationResponseCollection'
                       data: Array<{
                         __typename?: 'ProductEntity'
+                        id?: string | null
                         attributes?: {
                           __typename?: 'Product'
                           name: string
@@ -2922,6 +3004,29 @@ export type GetPagesQuery = {
                                     } | null
                                   } | null
                                 } | null
+                              } | null
+                            } | null
+                          } | null
+                          color?: {
+                            __typename?: 'ColorEntityResponse'
+                            data?: {
+                              __typename?: 'ColorEntity'
+                              id?: string | null
+                              attributes?: {
+                                __typename?: 'Color'
+                                title: string
+                              } | null
+                            } | null
+                          } | null
+                          memory?: {
+                            __typename?: 'MemoryEntityResponse'
+                            data?: {
+                              __typename?: 'MemoryEntity'
+                              id?: string | null
+                              attributes?: {
+                                __typename?: 'Memory'
+                                value: number
+                                title: string
                               } | null
                             } | null
                           } | null
@@ -3051,6 +3156,26 @@ export type GetProductQuery = {
             } | null
           } | null
         } | null
+        color?: {
+          __typename?: 'ColorEntityResponse'
+          data?: {
+            __typename?: 'ColorEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Color'; title: string } | null
+          } | null
+        } | null
+        memory?: {
+          __typename?: 'MemoryEntityResponse'
+          data?: {
+            __typename?: 'MemoryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Memory'
+              value: number
+              title: string
+            } | null
+          } | null
+        } | null
         brand?: {
           __typename?: 'BrandEntityResponse'
           data?: { __typename?: 'BrandEntity'; id?: string | null } | null
@@ -3071,6 +3196,11 @@ export type GetProductsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   categoryId?: InputMaybe<Scalars['ID']['input']>
   sub_categoryID?: InputMaybe<Scalars['ID']['input']>
+  query?: InputMaybe<Scalars['String']['input']>
+  sort?: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >
 }>
 
 export type GetProductsQuery = {
@@ -3133,6 +3263,26 @@ export type GetProductsQuery = {
                   } | null
                 } | null
               } | null
+            } | null
+          } | null
+        } | null
+        color?: {
+          __typename?: 'ColorEntityResponse'
+          data?: {
+            __typename?: 'ColorEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Color'; title: string } | null
+          } | null
+        } | null
+        memory?: {
+          __typename?: 'MemoryEntityResponse'
+          data?: {
+            __typename?: 'MemoryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Memory'
+              value: number
+              title: string
             } | null
           } | null
         } | null
@@ -3280,6 +3430,23 @@ export const ProductFragmentDoc = /*#__PURE__*/ `
       }
     }
   }
+  color {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+  memory {
+    data {
+      id
+      attributes {
+        value
+        title
+      }
+    }
+  }
   brand {
     data {
       id
@@ -3304,6 +3471,7 @@ export const SliderCollectionFragmentDoc = /*#__PURE__*/ `
         ...Collection
         products {
           data {
+            id
             attributes {
               ...Product
             }
@@ -3478,10 +3646,11 @@ export const GetProductDocument = /*#__PURE__*/ `
 ${ImageFragmentDoc}
 ${CollectionFragmentDoc}`
 export const GetProductsDocument = /*#__PURE__*/ `
-    query getProducts($page: Int, $pageSize: Int, $start: Int, $limit: Int, $categoryId: ID, $sub_categoryID: ID) {
+    query getProducts($page: Int, $pageSize: Int, $start: Int, $limit: Int, $categoryId: ID, $sub_categoryID: ID, $query: String, $sort: [String]) {
   products(
+    sort: $sort
     pagination: {page: $page, pageSize: $pageSize, start: $start, limit: $limit}
-    filters: {category: {id: {eq: $categoryId}}, sub_category: {id: {eq: $sub_categoryID}}}
+    filters: {category: {id: {eq: $categoryId}}, sub_category: {id: {eq: $sub_categoryID}}, name: {contains: $query}}
   ) {
     meta {
       pagination {

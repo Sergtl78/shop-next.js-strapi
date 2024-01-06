@@ -10,6 +10,7 @@ fragment SliderCollection on ComponentSectionSliderCollection{
         
         products{
           data{
+            id
             attributes{
               ...Product
             }

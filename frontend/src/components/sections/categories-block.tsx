@@ -1,4 +1,5 @@
 import { ComponentSectionCategories } from '@/graphql/generated'
+import Link from 'next/link'
 import MediaImage from '../media-image'
 import { Button } from '../ui/button'
 
@@ -21,9 +22,11 @@ const CategoriesBlock = ({ data }: Props) => {
                   image={category.attributes?.image?.data?.attributes}
                 />
               </div>
-              <Button className='w-full' variant={'outline'}>
-                {category.attributes?.name}
-              </Button>
+              <Link href={`/catalog/${category.id}`}>
+                <Button className='w-full' variant={'outline'}>
+                  {category.attributes?.name}
+                </Button>
+              </Link>
             </li>
           ))}
         </ul>

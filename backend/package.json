@@ -11,6 +11,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "@strapi/plugin-color-picker": "^4.16.2",
     "@strapi/plugin-graphql": "^4.16.2",
     "@strapi/plugin-i18n": "4.12.5",
     "@strapi/plugin-seo": "^1.9.8",

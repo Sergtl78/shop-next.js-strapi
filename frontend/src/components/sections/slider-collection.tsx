@@ -36,7 +36,7 @@ export function SliderCollection({ data }: Props) {
             (product, index) => (
               <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/6'>
                 {product.attributes && (
-                  <CardProduct data={product.attributes} />
+                  <CardProduct data={product.attributes} id={product.id} />
                 )}
               </CarouselItem>
             ),

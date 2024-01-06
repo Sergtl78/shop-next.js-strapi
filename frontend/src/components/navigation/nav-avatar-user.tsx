@@ -10,14 +10,18 @@ import {
 import NavAvatarItem from './nav-avatar-Item'
 
 export function AvatarUser() {
-  const isAuth = true
+  const isAuth = false
   return (
     <div className='flex items-center justify-center'>
       {isAuth ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar>
-              <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
+              <AvatarImage
+                src='https://github.com/shadcn.png'
+                alt='@shadcn'
+                className='cursor-pointer'
+              />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
@@ -27,7 +31,7 @@ export function AvatarUser() {
         </DropdownMenu>
       ) : (
         <Link href={'/login'}>
-          <Avatar className='border border-border flex items-center justify-center'>
+          <Avatar className='border border-border flex items-center justify-center hover:bg-muted'>
             <PersonIcon className='w-4 h-4' />
           </Avatar>
         </Link>

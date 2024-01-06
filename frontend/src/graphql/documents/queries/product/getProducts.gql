@@ -4,8 +4,12 @@ query getProducts (
   $start:Int,
   $limit:Int,
   $categoryId:ID,
-  $sub_categoryID:ID ){
+  $sub_categoryID:ID, 
+  $query:String,
+  $sort:[String] 
+  ){
   products(
+    sort:$sort
     pagination:{
       page:$page
       pageSize:$pageSize
@@ -15,7 +19,7 @@ query getProducts (
     filters:{
      category:{id:{eq:$categoryId}}
      sub_category:{id:{eq:$sub_categoryID}}
-  
+     name:{contains:$query}
   }){
     meta{
       pagination{

@@ -1,8 +1,9 @@
 import SideBar from '@/components/navigation/side-bar'
+import FiltersProduct from '@/components/product/filter-product'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function CatalogLayout({
-  children, // will be a page or nested layout
+  children,
 }: {
   children: React.ReactNode
 }) {
@@ -14,7 +15,11 @@ export default function CatalogLayout({
             <SideBar />
           </ScrollArea>
         </div>
-        <div className='md:col-span-4'>{children} </div>
+
+        <div className='md:col-span-4 flex flex-col w-full h-full'>
+          <FiltersProduct />
+          {children}
+        </div>
       </div>
     </section>
   )

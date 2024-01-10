@@ -1,7 +1,4 @@
 module.exports = {
-  seo: {
-    enabled: true,
-  },
   graphql: {
     config: {
       endpoint: '/graphql',

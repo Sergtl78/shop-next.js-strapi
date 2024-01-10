@@ -29,6 +29,12 @@
       "relation": "oneToMany",
       "target": "api::product.product",
       "mappedBy": "memory"
+    },
+    "sub_categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sub-category.sub-category",
+      "inversedBy": "memories"
     }
   }
 }

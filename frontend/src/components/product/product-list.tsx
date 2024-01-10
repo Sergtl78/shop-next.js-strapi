@@ -1,4 +1,4 @@
-import { GetProductsQuery } from '../../graphql/generated'
+import { GetProductsQuery } from '@/graphql/generated'
 import CardProduct from './card-product'
 import { ProductPagination } from './product-pagination'
 
@@ -15,10 +15,15 @@ const ProductList = async ({ data }: Props) => {
       <ul className='grid md:grid-cols-5 gap-4'>
         {data?.data.map((product) => (
           <li key={product.attributes?.slug}>
-            <CardProduct data={product.attributes} id={product.id} />
+            <CardProduct data={product} />
           </li>
         ))}
       </ul>
+      {data?.data.length === 0 && (
+        <div className='flex items-center justify-center w-full h-full '>
+          <p className='text-center'>Нет подходящих товаров</p>
+        </div>
+      )}
     </section>
   )
 }

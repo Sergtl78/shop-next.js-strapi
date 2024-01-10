@@ -335,15 +335,24 @@ export type CollectionInput = {
 
 export type Color = {
   __typename?: 'Color'
+  color?: Maybe<Scalars['String']['output']>
   createdAt?: Maybe<Scalars['DateTime']['output']>
   products?: Maybe<ProductRelationResponseCollection>
   publishedAt?: Maybe<Scalars['DateTime']['output']>
+  sub_categories?: Maybe<SubCategoryRelationResponseCollection>
   title: Scalars['String']['output']
   updatedAt?: Maybe<Scalars['DateTime']['output']>
 }
 
 export type ColorProductsArgs = {
   filters?: InputMaybe<ProductFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type ColorSub_CategoriesArgs = {
+  filters?: InputMaybe<SubCategoryFiltersInput>
   pagination?: InputMaybe<PaginationArg>
   publicationState?: InputMaybe<PublicationState>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
@@ -368,20 +377,29 @@ export type ColorEntityResponseCollection = {
 
 export type ColorFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ColorFiltersInput>>>
+  color?: InputMaybe<StringFilterInput>
   createdAt?: InputMaybe<DateTimeFilterInput>
   id?: InputMaybe<IdFilterInput>
   not?: InputMaybe<ColorFiltersInput>
   or?: InputMaybe<Array<InputMaybe<ColorFiltersInput>>>
   products?: InputMaybe<ProductFiltersInput>
   publishedAt?: InputMaybe<DateTimeFilterInput>
+  sub_categories?: InputMaybe<SubCategoryFiltersInput>
   title?: InputMaybe<StringFilterInput>
   updatedAt?: InputMaybe<DateTimeFilterInput>
 }
 
 export type ColorInput = {
+  color?: InputMaybe<Scalars['String']['input']>
   products?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
+  sub_categories?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   title?: InputMaybe<Scalars['String']['input']>
+}
+
+export type ColorRelationResponseCollection = {
+  __typename?: 'ColorRelationResponseCollection'
+  data: Array<ColorEntity>
 }
 
 export type Comment = {
@@ -893,6 +911,7 @@ export type Memory = {
   createdAt?: Maybe<Scalars['DateTime']['output']>
   products?: Maybe<ProductRelationResponseCollection>
   publishedAt?: Maybe<Scalars['DateTime']['output']>
+  sub_categories?: Maybe<SubCategoryRelationResponseCollection>
   title: Scalars['String']['output']
   updatedAt?: Maybe<Scalars['DateTime']['output']>
   value: Scalars['Int']['output']
@@ -900,6 +919,13 @@ export type Memory = {
 
 export type MemoryProductsArgs = {
   filters?: InputMaybe<ProductFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type MemorySub_CategoriesArgs = {
+  filters?: InputMaybe<SubCategoryFiltersInput>
   pagination?: InputMaybe<PaginationArg>
   publicationState?: InputMaybe<PublicationState>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
@@ -930,6 +956,7 @@ export type MemoryFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<MemoryFiltersInput>>>
   products?: InputMaybe<ProductFiltersInput>
   publishedAt?: InputMaybe<DateTimeFilterInput>
+  sub_categories?: InputMaybe<SubCategoryFiltersInput>
   title?: InputMaybe<StringFilterInput>
   updatedAt?: InputMaybe<DateTimeFilterInput>
   value?: InputMaybe<IntFilterInput>
@@ -938,8 +965,14 @@ export type MemoryFiltersInput = {
 export type MemoryInput = {
   products?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
+  sub_categories?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   title?: InputMaybe<Scalars['String']['input']>
   value?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type MemoryRelationResponseCollection = {
+  __typename?: 'MemoryRelationResponseCollection'
+  data: Array<MemoryEntity>
 }
 
 export type Mutation = {
@@ -1728,12 +1761,28 @@ export type StringFilterInput = {
 export type SubCategory = {
   __typename?: 'SubCategory'
   category?: Maybe<CategoryEntityResponse>
+  colors?: Maybe<ColorRelationResponseCollection>
   createdAt?: Maybe<Scalars['DateTime']['output']>
+  memories?: Maybe<MemoryRelationResponseCollection>
   name?: Maybe<Scalars['String']['output']>
   products?: Maybe<ProductRelationResponseCollection>
   publishedAt?: Maybe<Scalars['DateTime']['output']>
   slug?: Maybe<Scalars['String']['output']>
   updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type SubCategoryColorsArgs = {
+  filters?: InputMaybe<ColorFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type SubCategoryMemoriesArgs = {
+  filters?: InputMaybe<MemoryFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
 }
 
 export type SubCategoryProductsArgs = {
@@ -1763,8 +1812,10 @@ export type SubCategoryEntityResponseCollection = {
 export type SubCategoryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<SubCategoryFiltersInput>>>
   category?: InputMaybe<CategoryFiltersInput>
+  colors?: InputMaybe<ColorFiltersInput>
   createdAt?: InputMaybe<DateTimeFilterInput>
   id?: InputMaybe<IdFilterInput>
+  memories?: InputMaybe<MemoryFiltersInput>
   name?: InputMaybe<StringFilterInput>
   not?: InputMaybe<SubCategoryFiltersInput>
   or?: InputMaybe<Array<InputMaybe<SubCategoryFiltersInput>>>
@@ -1776,6 +1827,8 @@ export type SubCategoryFiltersInput = {
 
 export type SubCategoryInput = {
   category?: InputMaybe<Scalars['ID']['input']>
+  colors?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  memories?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   name?: InputMaybe<Scalars['String']['input']>
   products?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
@@ -2311,7 +2364,11 @@ export type ProductFragment = {
     data?: {
       __typename?: 'ColorEntity'
       id?: string | null
-      attributes?: { __typename?: 'Color'; title: string } | null
+      attributes?: {
+        __typename?: 'Color'
+        title: string
+        color?: string | null
+      } | null
     } | null
   } | null
   memory?: {
@@ -2333,6 +2390,40 @@ export type ProductFragment = {
   category?: {
     __typename?: 'CategoryEntityResponse'
     data?: { __typename?: 'CategoryEntity'; id?: string | null } | null
+  } | null
+  sub_category?: {
+    __typename?: 'SubCategoryEntityResponse'
+    data?: {
+      __typename?: 'SubCategoryEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'SubCategory'
+        colors?: {
+          __typename?: 'ColorRelationResponseCollection'
+          data: Array<{
+            __typename?: 'ColorEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Color'
+              title: string
+              color?: string | null
+            } | null
+          }>
+        } | null
+        memories?: {
+          __typename?: 'MemoryRelationResponseCollection'
+          data: Array<{
+            __typename?: 'MemoryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Memory'
+              title: string
+              value: number
+            } | null
+          }>
+        } | null
+      } | null
+    } | null
   } | null
 }
 
@@ -2481,7 +2572,11 @@ export type SliderCollectionFragment = {
                 data?: {
                   __typename?: 'ColorEntity'
                   id?: string | null
-                  attributes?: { __typename?: 'Color'; title: string } | null
+                  attributes?: {
+                    __typename?: 'Color'
+                    title: string
+                    color?: string | null
+                  } | null
                 } | null
               } | null
               memory?: {
@@ -2505,6 +2600,40 @@ export type SliderCollectionFragment = {
                 data?: {
                   __typename?: 'CategoryEntity'
                   id?: string | null
+                } | null
+              } | null
+              sub_category?: {
+                __typename?: 'SubCategoryEntityResponse'
+                data?: {
+                  __typename?: 'SubCategoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'SubCategory'
+                    colors?: {
+                      __typename?: 'ColorRelationResponseCollection'
+                      data: Array<{
+                        __typename?: 'ColorEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'Color'
+                          title: string
+                          color?: string | null
+                        } | null
+                      }>
+                    } | null
+                    memories?: {
+                      __typename?: 'MemoryRelationResponseCollection'
+                      data: Array<{
+                        __typename?: 'MemoryEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'Memory'
+                          title: string
+                          value: number
+                        } | null
+                      }>
+                    } | null
+                  } | null
                 } | null
               } | null
             } | null
@@ -2625,7 +2754,11 @@ export type GetBrandsQuery = {
                 data?: {
                   __typename?: 'ColorEntity'
                   id?: string | null
-                  attributes?: { __typename?: 'Color'; title: string } | null
+                  attributes?: {
+                    __typename?: 'Color'
+                    title: string
+                    color?: string | null
+                  } | null
                 } | null
               } | null
               memory?: {
@@ -2649,6 +2782,40 @@ export type GetBrandsQuery = {
                 data?: {
                   __typename?: 'CategoryEntity'
                   id?: string | null
+                } | null
+              } | null
+              sub_category?: {
+                __typename?: 'SubCategoryEntityResponse'
+                data?: {
+                  __typename?: 'SubCategoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'SubCategory'
+                    colors?: {
+                      __typename?: 'ColorRelationResponseCollection'
+                      data: Array<{
+                        __typename?: 'ColorEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'Color'
+                          title: string
+                          color?: string | null
+                        } | null
+                      }>
+                    } | null
+                    memories?: {
+                      __typename?: 'MemoryRelationResponseCollection'
+                      data: Array<{
+                        __typename?: 'MemoryEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'Memory'
+                          title: string
+                          value: number
+                        } | null
+                      }>
+                    } | null
+                  } | null
                 } | null
               } | null
             } | null
@@ -2771,7 +2938,11 @@ export type GetCategoryQuery = {
                 data?: {
                   __typename?: 'ColorEntity'
                   id?: string | null
-                  attributes?: { __typename?: 'Color'; title: string } | null
+                  attributes?: {
+                    __typename?: 'Color'
+                    title: string
+                    color?: string | null
+                  } | null
                 } | null
               } | null
               memory?: {
@@ -2795,6 +2966,40 @@ export type GetCategoryQuery = {
                 data?: {
                   __typename?: 'CategoryEntity'
                   id?: string | null
+                } | null
+              } | null
+              sub_category?: {
+                __typename?: 'SubCategoryEntityResponse'
+                data?: {
+                  __typename?: 'SubCategoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'SubCategory'
+                    colors?: {
+                      __typename?: 'ColorRelationResponseCollection'
+                      data: Array<{
+                        __typename?: 'ColorEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'Color'
+                          title: string
+                          color?: string | null
+                        } | null
+                      }>
+                    } | null
+                    memories?: {
+                      __typename?: 'MemoryRelationResponseCollection'
+                      data: Array<{
+                        __typename?: 'MemoryEntity'
+                        id?: string | null
+                        attributes?: {
+                          __typename?: 'Memory'
+                          title: string
+                          value: number
+                        } | null
+                      }>
+                    } | null
+                  } | null
                 } | null
               } | null
             } | null
@@ -3015,6 +3220,7 @@ export type GetPagesQuery = {
                               attributes?: {
                                 __typename?: 'Color'
                                 title: string
+                                color?: string | null
                               } | null
                             } | null
                           } | null
@@ -3042,6 +3248,40 @@ export type GetPagesQuery = {
                             data?: {
                               __typename?: 'CategoryEntity'
                               id?: string | null
+                            } | null
+                          } | null
+                          sub_category?: {
+                            __typename?: 'SubCategoryEntityResponse'
+                            data?: {
+                              __typename?: 'SubCategoryEntity'
+                              id?: string | null
+                              attributes?: {
+                                __typename?: 'SubCategory'
+                                colors?: {
+                                  __typename?: 'ColorRelationResponseCollection'
+                                  data: Array<{
+                                    __typename?: 'ColorEntity'
+                                    id?: string | null
+                                    attributes?: {
+                                      __typename?: 'Color'
+                                      title: string
+                                      color?: string | null
+                                    } | null
+                                  }>
+                                } | null
+                                memories?: {
+                                  __typename?: 'MemoryRelationResponseCollection'
+                                  data: Array<{
+                                    __typename?: 'MemoryEntity'
+                                    id?: string | null
+                                    attributes?: {
+                                      __typename?: 'Memory'
+                                      title: string
+                                      value: number
+                                    } | null
+                                  }>
+                                } | null
+                              } | null
                             } | null
                           } | null
                         } | null
@@ -3161,7 +3401,11 @@ export type GetProductQuery = {
           data?: {
             __typename?: 'ColorEntity'
             id?: string | null
-            attributes?: { __typename?: 'Color'; title: string } | null
+            attributes?: {
+              __typename?: 'Color'
+              title: string
+              color?: string | null
+            } | null
           } | null
         } | null
         memory?: {
@@ -3184,6 +3428,40 @@ export type GetProductQuery = {
           __typename?: 'CategoryEntityResponse'
           data?: { __typename?: 'CategoryEntity'; id?: string | null } | null
         } | null
+        sub_category?: {
+          __typename?: 'SubCategoryEntityResponse'
+          data?: {
+            __typename?: 'SubCategoryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'SubCategory'
+              colors?: {
+                __typename?: 'ColorRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'ColorEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Color'
+                    title: string
+                    color?: string | null
+                  } | null
+                }>
+              } | null
+              memories?: {
+                __typename?: 'MemoryRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'MemoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Memory'
+                    title: string
+                    value: number
+                  } | null
+                }>
+              } | null
+            } | null
+          } | null
+        } | null
       } | null
     } | null
   } | null
@@ -3194,13 +3472,16 @@ export type GetProductsQueryVariables = Exact<{
   pageSize?: InputMaybe<Scalars['Int']['input']>
   start?: InputMaybe<Scalars['Int']['input']>
   limit?: InputMaybe<Scalars['Int']['input']>
+  productId?: InputMaybe<Scalars['ID']['input']>
   categoryId?: InputMaybe<Scalars['ID']['input']>
-  sub_categoryID?: InputMaybe<Scalars['ID']['input']>
+  sub_categoryId?: InputMaybe<Scalars['ID']['input']>
   query?: InputMaybe<Scalars['String']['input']>
   sort?: InputMaybe<
     | Array<InputMaybe<Scalars['String']['input']>>
     | InputMaybe<Scalars['String']['input']>
   >
+  colorId?: InputMaybe<Scalars['ID']['input']>
+  memoryId?: InputMaybe<Scalars['ID']['input']>
 }>
 
 export type GetProductsQuery = {
@@ -3271,7 +3552,11 @@ export type GetProductsQuery = {
           data?: {
             __typename?: 'ColorEntity'
             id?: string | null
-            attributes?: { __typename?: 'Color'; title: string } | null
+            attributes?: {
+              __typename?: 'Color'
+              title: string
+              color?: string | null
+            } | null
           } | null
         } | null
         memory?: {
@@ -3293,6 +3578,40 @@ export type GetProductsQuery = {
         category?: {
           __typename?: 'CategoryEntityResponse'
           data?: { __typename?: 'CategoryEntity'; id?: string | null } | null
+        } | null
+        sub_category?: {
+          __typename?: 'SubCategoryEntityResponse'
+          data?: {
+            __typename?: 'SubCategoryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'SubCategory'
+              colors?: {
+                __typename?: 'ColorRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'ColorEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Color'
+                    title: string
+                    color?: string | null
+                  } | null
+                }>
+              } | null
+              memories?: {
+                __typename?: 'MemoryRelationResponseCollection'
+                data: Array<{
+                  __typename?: 'MemoryEntity'
+                  id?: string | null
+                  attributes?: {
+                    __typename?: 'Memory'
+                    title: string
+                    value: number
+                  } | null
+                }>
+              } | null
+            } | null
+          } | null
         } | null
       } | null
     }>
@@ -3435,6 +3754,7 @@ export const ProductFragmentDoc = /*#__PURE__*/ `
       id
       attributes {
         title
+        color
       }
     }
   }
@@ -3455,6 +3775,31 @@ export const ProductFragmentDoc = /*#__PURE__*/ `
   category {
     data {
       id
+    }
+  }
+  sub_category {
+    data {
+      id
+      attributes {
+        colors {
+          data {
+            id
+            attributes {
+              title
+              color
+            }
+          }
+        }
+        memories {
+          data {
+            id
+            attributes {
+              title
+              value
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -3646,11 +3991,11 @@ export const GetProductDocument = /*#__PURE__*/ `
 ${ImageFragmentDoc}
 ${CollectionFragmentDoc}`
 export const GetProductsDocument = /*#__PURE__*/ `
-    query getProducts($page: Int, $pageSize: Int, $start: Int, $limit: Int, $categoryId: ID, $sub_categoryID: ID, $query: String, $sort: [String]) {
+    query getProducts($page: Int, $pageSize: Int, $start: Int, $limit: Int, $productId: ID, $categoryId: ID, $sub_categoryId: ID, $query: String, $sort: [String], $colorId: ID, $memoryId: ID) {
   products(
     sort: $sort
     pagination: {page: $page, pageSize: $pageSize, start: $start, limit: $limit}
-    filters: {category: {id: {eq: $categoryId}}, sub_category: {id: {eq: $sub_categoryID}}, name: {contains: $query}}
+    filters: {id: {eq: $productId}, category: {id: {eq: $categoryId}}, sub_category: {id: {eq: $sub_categoryId}}, color: {id: {eq: $colorId}}, memory: {id: {eq: $memoryId}}, name: {contains: $query}}
   ) {
     meta {
       pagination {

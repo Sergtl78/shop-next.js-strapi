@@ -13,7 +13,7 @@ type Props = {
 const ProductsPage = async ({ params, searchParams }: Props) => {
   const products = await getProductsData({
     categoryId: params.id[0],
-    sub_categoryID: params.id[1],
+    sub_categoryId: params.id[1],
     query: searchParams?.query,
     page: Number(searchParams?.page),
     pageSize: 10,

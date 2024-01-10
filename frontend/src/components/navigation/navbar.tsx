@@ -1,5 +1,6 @@
 import { getCategoriesData } from '@/lib/api/categories'
 import { getALLProductsData } from '@/lib/api/product'
+import Cart from '../cart/cart'
 import Logo from '../logo'
 import { ModeToggle } from './mode-toggle'
 import { AvatarUser } from './nav-avatar-user'
@@ -23,6 +24,7 @@ const Navbar = async () => {
               categories={categories?.data}
             />
           )}
+          <Cart />
           <AvatarUser />
           <ModeToggle />
         </div>

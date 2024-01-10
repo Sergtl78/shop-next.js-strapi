@@ -3,10 +3,13 @@ query getProducts (
   $pageSize:Int,
   $start:Int,
   $limit:Int,
+  $productId:ID,
   $categoryId:ID,
-  $sub_categoryID:ID, 
+  $sub_categoryId:ID, 
   $query:String,
-  $sort:[String] 
+  $sort:[String],
+  $colorId:ID,
+  $memoryId:ID 
   ){
   products(
     sort:$sort
@@ -17,8 +20,11 @@ query getProducts (
       limit:$limit
     }
     filters:{
+      id:{eq:$productId}
      category:{id:{eq:$categoryId}}
-     sub_category:{id:{eq:$sub_categoryID}}
+     sub_category:{id:{eq:$sub_categoryId}}
+      color:{id:{eq:$colorId}}
+      memory:{id:{eq:$memoryId}}
      name:{contains:$query}
   }){
     meta{

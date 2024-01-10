@@ -23,6 +23,7 @@ fragment Product on Product{
       id
       attributes{
         title
+        color
       }
     }
   }
@@ -43,6 +44,32 @@ fragment Product on Product{
   category{
     data{
       id
+      
     }
   }
+  sub_category{
+    data{
+      id
+      attributes{
+        colors{
+          data{
+            id
+            attributes{
+              title
+              color
+            }
+          }
+        }
+        memories{
+          data{
+            id
+            attributes{
+              title
+              value
+            }
+          }
+        }
+      }
+    }
+  }  
 }

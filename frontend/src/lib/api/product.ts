@@ -6,7 +6,7 @@ import { cache } from 'react'
 export const getALLProductsData = cache(
   async ({
     categoryId,
-    sub_categoryID,
+    sub_categoryId,
     page,
     pageSize,
     start,
@@ -15,7 +15,7 @@ export const getALLProductsData = cache(
     sort,
   }: {
     categoryId?: string
-    sub_categoryID?: string
+    sub_categoryId?: string
     page?: number
     pageSize?: number
     start?: number
@@ -26,7 +26,7 @@ export const getALLProductsData = cache(
     try {
       const { products } = await gql.getProducts({
         categoryId,
-        sub_categoryID,
+        sub_categoryId,
         page,
         pageSize,
         start,
@@ -45,8 +45,11 @@ export const getALLProductsData = cache(
 )
 export const getProductsData = cache(
   async ({
+    productId,
     categoryId,
-    sub_categoryID,
+    sub_categoryId,
+    colorId,
+    memoryId,
     page,
     pageSize,
     start,
@@ -54,8 +57,11 @@ export const getProductsData = cache(
     query,
     sort,
   }: {
+    productId?: string
     categoryId?: string
-    sub_categoryID?: string
+    sub_categoryId?: string
+    colorId?: string
+    memoryId?: string
     page?: number
     pageSize?: number
     start?: number
@@ -65,8 +71,11 @@ export const getProductsData = cache(
   }) => {
     try {
       const { products } = await gql.getProducts({
+        productId,
         categoryId,
-        sub_categoryID,
+        sub_categoryId,
+        colorId,
+        memoryId,
         page,
         pageSize,
         start,

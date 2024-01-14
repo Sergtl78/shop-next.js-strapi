@@ -1,0 +1,14 @@
+query getSubCategory ($id:ID!) {
+  subCategory(id:$id){
+    data{
+      id
+      attributes{
+        name
+        slug
+        slider{
+          ...SliderCollection
+        }
+      }
+    }
+  }
+}

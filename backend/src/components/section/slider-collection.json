@@ -1,15 +1,18 @@
 {
   "collectionName": "components_section_slider_collections",
   "info": {
-    "displayName": "SliderCollection"
+    "displayName": "SliderCollection",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "default": "Рекомендуемые товары"
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "default": "Возможно вам понравится"
     },
     "collection": {
       "type": "relation",

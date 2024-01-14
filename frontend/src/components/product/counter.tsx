@@ -35,24 +35,27 @@ const Counter = ({ product }: Props) => {
         </Button>
       </div>
       <div className='flex flex-col '>
-        {product.attributes?.collection?.data?.attributes?.discount && (
-          <div className='flex flex-row w-full items-center justify-between'>
-            <span className='line-through '>
-              {getOldPrice({
-                price: product.attributes?.price ?? 0,
-                discount:
-                  product.attributes?.collection?.data?.attributes?.discount ??
+        <div className='flex flex-row w-full items-center justify-between'>
+          <span className='line-through '>
+            {getOldPrice({
+              price: product.attributes?.price ?? 0,
+              discount:
+                product.attributes?.collections?.data.reduce(
+                  (acc, item) => (acc += item.attributes?.discount || 0),
                   0,
-              })}
-            </span>
-            <span>{`— ${product.attributes?.collection?.data?.attributes?.discount}%`}</span>
-          </div>
-        )}
+                ) || 0,
+            })}
+          </span>
+          <span>{`— ${product.attributes?.collections?.data.reduce(
+            (acc, item) => (acc += item.attributes?.discount || 0),
+            0,
+          )}%`}</span>
+        </div>
         <div className='flex flex-row items-center gap-x-4 '>
           <p className='text-2xl font-semibold'>
             {formatPrice(product.attributes?.price! * count)}
           </p>
-          <Button onClick={() => addCart({ product, quantity: count })}>
+          <Button onClick={() => addCart({ ...product, quantity: count })}>
             <Icons.cart className='w-6 h-6 fill-primary-foreground' />
           </Button>
         </div>

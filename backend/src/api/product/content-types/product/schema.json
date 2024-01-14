@@ -56,12 +56,6 @@
       "target": "api::comment.comment",
       "mappedBy": "product"
     },
-    "collection": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::collection.collection",
-      "inversedBy": "products"
-    },
     "color": {
       "type": "relation",
       "relation": "manyToOne",
@@ -78,6 +72,12 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::sub-category.sub-category",
+      "inversedBy": "products"
+    },
+    "collections": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::collection.collection",
       "inversedBy": "products"
     }
   }

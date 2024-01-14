@@ -11,7 +11,7 @@ fragment Product on Product{
       }
     }
   }
-  collection{
+  collections{
     data{
       attributes{
         ...Collection

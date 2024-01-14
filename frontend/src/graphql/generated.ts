@@ -333,6 +333,11 @@ export type CollectionInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
+export type CollectionRelationResponseCollection = {
+  __typename?: 'CollectionRelationResponseCollection'
+  data: Array<CollectionEntity>
+}
+
 export type Color = {
   __typename?: 'Color'
   color?: Maybe<Scalars['String']['output']>
@@ -535,6 +540,26 @@ export type ComponentSectionSliderCollection = {
   description?: Maybe<Scalars['String']['output']>
   id: Scalars['ID']['output']
   title?: Maybe<Scalars['String']['output']>
+}
+
+export type ComponentSectionSliderCollectionFiltersInput = {
+  and?: InputMaybe<
+    Array<InputMaybe<ComponentSectionSliderCollectionFiltersInput>>
+  >
+  collection?: InputMaybe<CollectionFiltersInput>
+  description?: InputMaybe<StringFilterInput>
+  not?: InputMaybe<ComponentSectionSliderCollectionFiltersInput>
+  or?: InputMaybe<
+    Array<InputMaybe<ComponentSectionSliderCollectionFiltersInput>>
+  >
+  title?: InputMaybe<StringFilterInput>
+}
+
+export type ComponentSectionSliderCollectionInput = {
+  collection?: InputMaybe<Scalars['ID']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['ID']['input']>
+  title?: InputMaybe<Scalars['String']['input']>
 }
 
 export type ComponentSectionSliderPromo = {
@@ -1421,7 +1446,7 @@ export type Product = {
   __typename?: 'Product'
   brand?: Maybe<BrandEntityResponse>
   category?: Maybe<CategoryEntityResponse>
-  collection?: Maybe<CollectionEntityResponse>
+  collections?: Maybe<CollectionRelationResponseCollection>
   color?: Maybe<ColorEntityResponse>
   comments?: Maybe<CommentRelationResponseCollection>
   createdAt?: Maybe<Scalars['DateTime']['output']>
@@ -1435,6 +1460,13 @@ export type Product = {
   slug?: Maybe<Scalars['String']['output']>
   sub_category?: Maybe<SubCategoryEntityResponse>
   updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type ProductCollectionsArgs = {
+  filters?: InputMaybe<CollectionFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
 }
 
 export type ProductCommentsArgs = {
@@ -1471,7 +1503,7 @@ export type ProductFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>
   brand?: InputMaybe<BrandFiltersInput>
   category?: InputMaybe<CategoryFiltersInput>
-  collection?: InputMaybe<CollectionFiltersInput>
+  collections?: InputMaybe<CollectionFiltersInput>
   color?: InputMaybe<ColorFiltersInput>
   comments?: InputMaybe<CommentFiltersInput>
   createdAt?: InputMaybe<DateTimeFilterInput>
@@ -1492,7 +1524,7 @@ export type ProductFiltersInput = {
 export type ProductInput = {
   brand?: InputMaybe<Scalars['ID']['input']>
   category?: InputMaybe<Scalars['ID']['input']>
-  collection?: InputMaybe<Scalars['ID']['input']>
+  collections?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   color?: InputMaybe<Scalars['ID']['input']>
   comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   description?: InputMaybe<Scalars['String']['input']>
@@ -1767,6 +1799,7 @@ export type SubCategory = {
   name?: Maybe<Scalars['String']['output']>
   products?: Maybe<ProductRelationResponseCollection>
   publishedAt?: Maybe<Scalars['DateTime']['output']>
+  slider?: Maybe<ComponentSectionSliderCollection>
   slug?: Maybe<Scalars['String']['output']>
   updatedAt?: Maybe<Scalars['DateTime']['output']>
 }
@@ -1821,6 +1854,7 @@ export type SubCategoryFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<SubCategoryFiltersInput>>>
   products?: InputMaybe<ProductFiltersInput>
   publishedAt?: InputMaybe<DateTimeFilterInput>
+  slider?: InputMaybe<ComponentSectionSliderCollectionFiltersInput>
   slug?: InputMaybe<StringFilterInput>
   updatedAt?: InputMaybe<DateTimeFilterInput>
 }
@@ -1832,6 +1866,7 @@ export type SubCategoryInput = {
   name?: InputMaybe<Scalars['String']['input']>
   products?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
+  slider?: InputMaybe<ComponentSectionSliderCollectionInput>
   slug?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -2148,6 +2183,7 @@ export type UsersPermissionsUpdateRolePayload = {
 export type UsersPermissionsUser = {
   __typename?: 'UsersPermissionsUser'
   addresses?: Maybe<AddressRelationResponseCollection>
+  avatar?: Maybe<UploadFileEntityResponse>
   blocked?: Maybe<Scalars['Boolean']['output']>
   comments?: Maybe<CommentRelationResponseCollection>
   confirmed?: Maybe<Scalars['Boolean']['output']>
@@ -2220,6 +2256,7 @@ export type UsersPermissionsUserFiltersInput = {
 
 export type UsersPermissionsUserInput = {
   addresses?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  avatar?: InputMaybe<Scalars['ID']['input']>
   blocked?: InputMaybe<Scalars['Boolean']['input']>
   comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   confirmationToken?: InputMaybe<Scalars['String']['input']>
@@ -2334,9 +2371,9 @@ export type ProductFragment = {
       } | null
     }>
   }
-  collection?: {
-    __typename?: 'CollectionEntityResponse'
-    data?: {
+  collections?: {
+    __typename?: 'CollectionRelationResponseCollection'
+    data: Array<{
       __typename?: 'CollectionEntity'
       attributes?: {
         __typename?: 'Collection'
@@ -2357,7 +2394,7 @@ export type ProductFragment = {
           } | null
         } | null
       } | null
-    } | null
+    }>
   } | null
   color?: {
     __typename?: 'ColorEntityResponse'
@@ -2542,9 +2579,9 @@ export type SliderCollectionFragment = {
                   } | null
                 }>
               }
-              collection?: {
-                __typename?: 'CollectionEntityResponse'
-                data?: {
+              collections?: {
+                __typename?: 'CollectionRelationResponseCollection'
+                data: Array<{
                   __typename?: 'CollectionEntity'
                   attributes?: {
                     __typename?: 'Collection'
@@ -2565,7 +2602,7 @@ export type SliderCollectionFragment = {
                       } | null
                     } | null
                   } | null
-                } | null
+                }>
               } | null
               color?: {
                 __typename?: 'ColorEntityResponse'
@@ -2658,6 +2695,96 @@ export type SliderCollectionFragment = {
   } | null
 }
 
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String']['input']
+  password: Scalars['String']['input']
+}>
+
+export type LoginMutation = {
+  __typename?: 'Mutation'
+  login: {
+    __typename?: 'UsersPermissionsLoginPayload'
+    jwt?: string | null
+    user: {
+      __typename?: 'UsersPermissionsMe'
+      id: string
+      username: string
+      email?: string | null
+      confirmed?: boolean | null
+      blocked?: boolean | null
+    }
+  }
+}
+
+export type RegisterMutationVariables = Exact<{
+  username: Scalars['String']['input']
+  email: Scalars['String']['input']
+  password: Scalars['String']['input']
+}>
+
+export type RegisterMutation = {
+  __typename?: 'Mutation'
+  register: {
+    __typename?: 'UsersPermissionsLoginPayload'
+    jwt?: string | null
+    user: {
+      __typename?: 'UsersPermissionsMe'
+      id: string
+      username: string
+      email?: string | null
+      confirmed?: boolean | null
+      blocked?: boolean | null
+      role?: {
+        __typename?: 'UsersPermissionsMeRole'
+        id: string
+        name: string
+        description?: string | null
+        type?: string | null
+      } | null
+    }
+  }
+}
+
+export type CreateCommentMutationVariables = Exact<{
+  content?: InputMaybe<Scalars['String']['input']>
+  userId: Scalars['ID']['input']
+  productId: Scalars['ID']['input']
+  rate?: InputMaybe<Scalars['Int']['input']>
+}>
+
+export type CreateCommentMutation = {
+  __typename?: 'Mutation'
+  createComment?: {
+    __typename?: 'CommentEntityResponse'
+    data?: {
+      __typename?: 'CommentEntity'
+      id?: string | null
+      attributes?: { __typename?: 'Comment'; content?: string | null } | null
+    } | null
+  } | null
+}
+
+export type UpdateRatingProductMutationVariables = Exact<{
+  productId: Scalars['ID']['input']
+  rate?: InputMaybe<Scalars['Float']['input']>
+}>
+
+export type UpdateRatingProductMutation = {
+  __typename?: 'Mutation'
+  updateProduct?: {
+    __typename?: 'ProductEntityResponse'
+    data?: {
+      __typename?: 'ProductEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Product'
+        name: string
+        rating?: number | null
+      } | null
+    } | null
+  } | null
+}
+
 export type GetBrandsQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>
 }>
@@ -2724,9 +2851,9 @@ export type GetBrandsQuery = {
                   } | null
                 }>
               }
-              collection?: {
-                __typename?: 'CollectionEntityResponse'
-                data?: {
+              collections?: {
+                __typename?: 'CollectionRelationResponseCollection'
+                data: Array<{
                   __typename?: 'CollectionEntity'
                   attributes?: {
                     __typename?: 'Collection'
@@ -2747,7 +2874,7 @@ export type GetBrandsQuery = {
                       } | null
                     } | null
                   } | null
-                } | null
+                }>
               } | null
               color?: {
                 __typename?: 'ColorEntityResponse'
@@ -2908,9 +3035,9 @@ export type GetCategoryQuery = {
                   } | null
                 }>
               }
-              collection?: {
-                __typename?: 'CollectionEntityResponse'
-                data?: {
+              collections?: {
+                __typename?: 'CollectionRelationResponseCollection'
+                data: Array<{
                   __typename?: 'CollectionEntity'
                   attributes?: {
                     __typename?: 'Collection'
@@ -2931,7 +3058,7 @@ export type GetCategoryQuery = {
                       } | null
                     } | null
                   } | null
-                } | null
+                }>
               } | null
               color?: {
                 __typename?: 'ColorEntityResponse'
@@ -3007,6 +3134,40 @@ export type GetCategoryQuery = {
         } | null
       } | null
     } | null
+  } | null
+}
+
+export type GetCommentsQueryVariables = Exact<{
+  productId?: InputMaybe<Scalars['ID']['input']>
+}>
+
+export type GetCommentsQuery = {
+  __typename?: 'Query'
+  comments?: {
+    __typename?: 'CommentEntityResponseCollection'
+    data: Array<{
+      __typename?: 'CommentEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Comment'
+        content?: string | null
+        rate: number
+        createdAt?: any | null
+        updatedAt?: any | null
+        publishedAt?: any | null
+        users_permissions_user?: {
+          __typename?: 'UsersPermissionsUserEntityResponse'
+          data?: {
+            __typename?: 'UsersPermissionsUserEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UsersPermissionsUser'
+              username: string
+            } | null
+          } | null
+        } | null
+      } | null
+    }>
   } | null
 }
 
@@ -3187,9 +3348,9 @@ export type GetPagesQuery = {
                               } | null
                             }>
                           }
-                          collection?: {
-                            __typename?: 'CollectionEntityResponse'
-                            data?: {
+                          collections?: {
+                            __typename?: 'CollectionRelationResponseCollection'
+                            data: Array<{
                               __typename?: 'CollectionEntity'
                               attributes?: {
                                 __typename?: 'Collection'
@@ -3210,7 +3371,7 @@ export type GetPagesQuery = {
                                   } | null
                                 } | null
                               } | null
-                            } | null
+                            }>
                           } | null
                           color?: {
                             __typename?: 'ColorEntityResponse'
@@ -3371,9 +3532,9 @@ export type GetProductQuery = {
             } | null
           }>
         }
-        collection?: {
-          __typename?: 'CollectionEntityResponse'
-          data?: {
+        collections?: {
+          __typename?: 'CollectionRelationResponseCollection'
+          data: Array<{
             __typename?: 'CollectionEntity'
             attributes?: {
               __typename?: 'Collection'
@@ -3394,7 +3555,7 @@ export type GetProductQuery = {
                 } | null
               } | null
             } | null
-          } | null
+          }>
         } | null
         color?: {
           __typename?: 'ColorEntityResponse'
@@ -3522,9 +3683,9 @@ export type GetProductsQuery = {
             } | null
           }>
         }
-        collection?: {
-          __typename?: 'CollectionEntityResponse'
-          data?: {
+        collections?: {
+          __typename?: 'CollectionRelationResponseCollection'
+          data: Array<{
             __typename?: 'CollectionEntity'
             attributes?: {
               __typename?: 'Collection'
@@ -3545,7 +3706,7 @@ export type GetProductsQuery = {
                 } | null
               } | null
             } | null
-          } | null
+          }>
         } | null
         color?: {
           __typename?: 'ColorEntityResponse'
@@ -3613,6 +3774,226 @@ export type GetProductsQuery = {
             } | null
           } | null
         } | null
+      } | null
+    }>
+  } | null
+}
+
+export type GetSubCategoryQueryVariables = Exact<{
+  id: Scalars['ID']['input']
+}>
+
+export type GetSubCategoryQuery = {
+  __typename?: 'Query'
+  subCategory?: {
+    __typename?: 'SubCategoryEntityResponse'
+    data?: {
+      __typename?: 'SubCategoryEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'SubCategory'
+        name?: string | null
+        slug?: string | null
+        slider?: {
+          __typename?: 'ComponentSectionSliderCollection'
+          id: string
+          title?: string | null
+          description?: string | null
+          collection?: {
+            __typename?: 'CollectionEntityResponse'
+            data?: {
+              __typename?: 'CollectionEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Collection'
+                name: string
+                discount?: number | null
+                products?: {
+                  __typename?: 'ProductRelationResponseCollection'
+                  data: Array<{
+                    __typename?: 'ProductEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'Product'
+                      name: string
+                      slug?: string | null
+                      description?: string | null
+                      price?: number | null
+                      rating?: number | null
+                      image: {
+                        __typename?: 'UploadFileRelationResponseCollection'
+                        data: Array<{
+                          __typename?: 'UploadFileEntity'
+                          attributes?: {
+                            __typename?: 'UploadFile'
+                            name: string
+                            alternativeText?: string | null
+                            width?: number | null
+                            height?: number | null
+                            url: string
+                          } | null
+                        }>
+                      }
+                      collections?: {
+                        __typename?: 'CollectionRelationResponseCollection'
+                        data: Array<{
+                          __typename?: 'CollectionEntity'
+                          attributes?: {
+                            __typename?: 'Collection'
+                            name: string
+                            discount?: number | null
+                            icon?: {
+                              __typename?: 'UploadFileEntityResponse'
+                              data?: {
+                                __typename?: 'UploadFileEntity'
+                                attributes?: {
+                                  __typename?: 'UploadFile'
+                                  name: string
+                                  alternativeText?: string | null
+                                  width?: number | null
+                                  height?: number | null
+                                  url: string
+                                } | null
+                              } | null
+                            } | null
+                          } | null
+                        }>
+                      } | null
+                      color?: {
+                        __typename?: 'ColorEntityResponse'
+                        data?: {
+                          __typename?: 'ColorEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Color'
+                            title: string
+                            color?: string | null
+                          } | null
+                        } | null
+                      } | null
+                      memory?: {
+                        __typename?: 'MemoryEntityResponse'
+                        data?: {
+                          __typename?: 'MemoryEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Memory'
+                            value: number
+                            title: string
+                          } | null
+                        } | null
+                      } | null
+                      brand?: {
+                        __typename?: 'BrandEntityResponse'
+                        data?: {
+                          __typename?: 'BrandEntity'
+                          id?: string | null
+                        } | null
+                      } | null
+                      category?: {
+                        __typename?: 'CategoryEntityResponse'
+                        data?: {
+                          __typename?: 'CategoryEntity'
+                          id?: string | null
+                        } | null
+                      } | null
+                      sub_category?: {
+                        __typename?: 'SubCategoryEntityResponse'
+                        data?: {
+                          __typename?: 'SubCategoryEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'SubCategory'
+                            colors?: {
+                              __typename?: 'ColorRelationResponseCollection'
+                              data: Array<{
+                                __typename?: 'ColorEntity'
+                                id?: string | null
+                                attributes?: {
+                                  __typename?: 'Color'
+                                  title: string
+                                  color?: string | null
+                                } | null
+                              }>
+                            } | null
+                            memories?: {
+                              __typename?: 'MemoryRelationResponseCollection'
+                              data: Array<{
+                                __typename?: 'MemoryEntity'
+                                id?: string | null
+                                attributes?: {
+                                  __typename?: 'Memory'
+                                  title: string
+                                  value: number
+                                } | null
+                              }>
+                            } | null
+                          } | null
+                        } | null
+                      } | null
+                    } | null
+                  }>
+                } | null
+                icon?: {
+                  __typename?: 'UploadFileEntityResponse'
+                  data?: {
+                    __typename?: 'UploadFileEntity'
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      name: string
+                      alternativeText?: string | null
+                      width?: number | null
+                      height?: number | null
+                      url: string
+                    } | null
+                  } | null
+                } | null
+              } | null
+            } | null
+          } | null
+        } | null
+      } | null
+    } | null
+  } | null
+}
+
+export type MeQueryVariables = Exact<{ [key: string]: never }>
+
+export type MeQuery = {
+  __typename?: 'Query'
+  me?: {
+    __typename?: 'UsersPermissionsMe'
+    id: string
+    username: string
+    email?: string | null
+    confirmed?: boolean | null
+    blocked?: boolean | null
+    role?: {
+      __typename?: 'UsersPermissionsMeRole'
+      id: string
+      name: string
+      description?: string | null
+      type?: string | null
+    } | null
+  } | null
+}
+
+export type GetUserByEmailQueryVariables = Exact<{
+  email: Scalars['String']['input']
+}>
+
+export type GetUserByEmailQuery = {
+  __typename?: 'Query'
+  usersPermissionsUsers?: {
+    __typename?: 'UsersPermissionsUserEntityResponseCollection'
+    data: Array<{
+      __typename?: 'UsersPermissionsUserEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'UsersPermissionsUser'
+        username: string
+        email: string
+        blocked?: boolean | null
       } | null
     }>
   } | null
@@ -3742,7 +4123,7 @@ export const ProductFragmentDoc = /*#__PURE__*/ `
       }
     }
   }
-  collection {
+  collections {
     data {
       attributes {
         ...Collection
@@ -3822,6 +4203,67 @@ export const SliderCollectionFragmentDoc = /*#__PURE__*/ `
             }
           }
         }
+      }
+    }
+  }
+}
+    `
+export const LoginDocument = /*#__PURE__*/ `
+    mutation login($email: String!, $password: String!) {
+  login(input: {identifier: $email, password: $password, provider: "local"}) {
+    jwt
+    user {
+      id
+      username
+      email
+      confirmed
+      blocked
+    }
+  }
+}
+    `
+export const RegisterDocument = /*#__PURE__*/ `
+    mutation register($username: String!, $email: String!, $password: String!) {
+  register(input: {username: $username, email: $email, password: $password}) {
+    jwt
+    user {
+      id
+      username
+      email
+      confirmed
+      blocked
+      role {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+}
+    `
+export const CreateCommentDocument = /*#__PURE__*/ `
+    mutation CreateComment($content: String, $userId: ID!, $productId: ID!, $rate: Int) {
+  createComment(
+    data: {content: $content, users_permissions_user: $userId, product: $productId, rate: $rate}
+  ) {
+    data {
+      id
+      attributes {
+        content
+      }
+    }
+  }
+}
+    `
+export const UpdateRatingProductDocument = /*#__PURE__*/ `
+    mutation updateRatingProduct($productId: ID!, $rate: Float) {
+  updateProduct(id: $productId, data: {rating: $rate}) {
+    data {
+      id
+      attributes {
+        name
+        rating
       }
     }
   }
@@ -3920,6 +4362,30 @@ export const GetCategoryDocument = /*#__PURE__*/ `
     ${ProductFragmentDoc}
 ${ImageFragmentDoc}
 ${CollectionFragmentDoc}`
+export const GetCommentsDocument = /*#__PURE__*/ `
+    query getComments($productId: ID) {
+  comments(filters: {product: {id: {eq: $productId}}}) {
+    data {
+      id
+      attributes {
+        content
+        rate
+        createdAt
+        updatedAt
+        publishedAt
+        users_permissions_user {
+          data {
+            id
+            attributes {
+              username
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `
 export const GetGlobalDocument = /*#__PURE__*/ `
     query getGlobal {
   global {
@@ -4016,6 +4482,56 @@ export const GetProductsDocument = /*#__PURE__*/ `
     ${ProductFragmentDoc}
 ${ImageFragmentDoc}
 ${CollectionFragmentDoc}`
+export const GetSubCategoryDocument = /*#__PURE__*/ `
+    query getSubCategory($id: ID!) {
+  subCategory(id: $id) {
+    data {
+      id
+      attributes {
+        name
+        slug
+        slider {
+          ...SliderCollection
+        }
+      }
+    }
+  }
+}
+    ${SliderCollectionFragmentDoc}
+${CollectionFragmentDoc}
+${ImageFragmentDoc}
+${ProductFragmentDoc}`
+export const MeDocument = /*#__PURE__*/ `
+    query me {
+  me {
+    id
+    username
+    email
+    confirmed
+    blocked
+    role {
+      id
+      name
+      description
+      type
+    }
+  }
+}
+    `
+export const GetUserByEmailDocument = /*#__PURE__*/ `
+    query getUserByEmail($email: String!) {
+  usersPermissionsUsers(filters: {email: {eq: $email}}) {
+    data {
+      id
+      attributes {
+        username
+        email
+        blocked
+      }
+    }
+  }
+}
+    `
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -4036,6 +4552,68 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
+    login(
+      variables: LoginMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<LoginMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<LoginMutation>(LoginDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'login',
+        'mutation',
+        variables,
+      )
+    },
+    register(
+      variables: RegisterMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<RegisterMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<RegisterMutation>(RegisterDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'register',
+        'mutation',
+        variables,
+      )
+    },
+    CreateComment(
+      variables: CreateCommentMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<CreateCommentMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<CreateCommentMutation>(
+            CreateCommentDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'CreateComment',
+        'mutation',
+        variables,
+      )
+    },
+    updateRatingProduct(
+      variables: UpdateRatingProductMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<UpdateRatingProductMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateRatingProductMutation>(
+            UpdateRatingProductDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'updateRatingProduct',
+        'mutation',
+        variables,
+      )
+    },
     getBrands(
       variables?: GetBrandsQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
@@ -4077,6 +4655,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'getCategory',
+        'query',
+        variables,
+      )
+    },
+    getComments(
+      variables?: GetCommentsQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetCommentsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetCommentsQuery>(GetCommentsDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'getComments',
         'query',
         variables,
       )
@@ -4137,6 +4730,53 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'getProducts',
+        'query',
+        variables,
+      )
+    },
+    getSubCategory(
+      variables: GetSubCategoryQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetSubCategoryQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetSubCategoryQuery>(
+            GetSubCategoryDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'getSubCategory',
+        'query',
+        variables,
+      )
+    },
+    me(
+      variables?: MeQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<MeQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<MeQuery>(MeDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'me',
+        'query',
+        variables,
+      )
+    },
+    getUserByEmail(
+      variables: GetUserByEmailQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetUserByEmailQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserByEmailQuery>(
+            GetUserByEmailDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'getUserByEmail',
         'query',
         variables,
       )

@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "slug": {
       "type": "uid"
@@ -41,6 +42,11 @@
       "relation": "manyToMany",
       "target": "api::memory.memory",
       "mappedBy": "sub_categories"
+    },
+    "slider": {
+      "type": "component",
+      "repeatable": false,
+      "component": "section.slider-collection"
     }
   }
 }

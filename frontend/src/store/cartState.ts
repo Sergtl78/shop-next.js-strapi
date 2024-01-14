@@ -5,13 +5,16 @@ import { GetProductsQuery } from '@/graphql/generated'
 import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
-export type CartItem = {
-  product: NonNullable<GetProductsQuery['products']>['data'][0]
+type ProductItem = NonNullable<GetProductsQuery['products']>['data'][0]
+
+export interface CartItem extends ProductItem {
   quantity: number
 }
 
 type State = {
   cartItems: CartItem[]
+  totalPrice: number
+  totalQuantity: number
 }
 
 type Actions = {
@@ -19,9 +22,17 @@ type Actions = {
   addFromCart: (id: string, count: number) => void
   removeFromCart: (id: string, count: number) => void
   removeItemCart: (id: string) => void
-  getCartItemsTotal: () => number
-  getCartTotal: () => number
   clearCart: () => void
+}
+
+const getQuantityTotal = (cartItems: CartItem[]) => {
+  return cartItems.reduce((total, item) => total + item.quantity, 0)
+}
+const getPriceTotal = (cartItems: CartItem[]) => {
+  return cartItems.reduce(
+    (total, item) => total + (item.attributes?.price ?? 0) * item.quantity,
+    0,
+  )
 }
 
 export const useCartStore = createWithEqualityFn<State & Actions>()(
@@ -30,17 +41,20 @@ export const useCartStore = createWithEqualityFn<State & Actions>()(
       devtools(
         (set, get) => ({
           cartItems: [],
+          totalPrice: 0,
+          totalQuantity: 0,
+
           addCart: (value: CartItem) => {
             const { cartItems } = get()
 
             const isCart = cartItems.find(
-              (cartItem) => cartItem.product.id === value.product.id,
+              (cartItem) => cartItem.id === value.id,
             )
             if (isCart) {
               set(
                 () => ({
                   cartItems: cartItems.map((item) =>
-                    item.product.id === value.product.id
+                    item.id === value.id
                       ? { ...item, quantity: item.quantity + value.quantity }
                       : item,
                   ),
@@ -51,17 +65,20 @@ export const useCartStore = createWithEqualityFn<State & Actions>()(
             } else {
               set({ cartItems: cartItems.concat(value) }, false, 'cart/addCart')
             }
+
+            set((state) => ({ totalPrice: getPriceTotal(state.cartItems) }))
+            set((state) => ({
+              totalQuantity: getQuantityTotal(state.cartItems),
+            }))
           },
           addFromCart: (id: string, count: number) => {
             const { cartItems } = get()
-            const isCart = cartItems.find(
-              (cartItem) => cartItem.product.id === id,
-            )
+            const isCart = cartItems.find((cartItem) => cartItem.id === id)
             if (isCart) {
               set(
                 {
                   cartItems: cartItems.map((item) =>
-                    item.product.id === id
+                    item.id === id
                       ? { ...item, quantity: item.quantity + count }
                       : item,
                   ),
@@ -70,18 +87,20 @@ export const useCartStore = createWithEqualityFn<State & Actions>()(
                 'cart/addFromCart',
               )
             }
+            set((state) => ({ totalPrice: getPriceTotal(state.cartItems) }))
+            set((state) => ({
+              totalQuantity: getQuantityTotal(state.cartItems),
+            }))
           },
           removeFromCart: (id: string, count: number) => {
             const { cartItems } = get()
-            const isCart = cartItems.find(
-              (cartItem) => cartItem.product.id === id,
-            )
+            const isCart = cartItems.find((cartItem) => cartItem.id === id)
             if (isCart) {
               isCart.quantity > count
                 ? set(
                     {
                       cartItems: cartItems.map((item) =>
-                        item.product.id === id
+                        item.id === id
                           ? { ...item, quantity: item.quantity - count }
                           : item,
                       ),
@@ -91,26 +110,32 @@ export const useCartStore = createWithEqualityFn<State & Actions>()(
                   )
                 : set(
                     {
-                      cartItems: cartItems.filter(
-                        (item) => item.product.id !== id,
-                      ),
+                      cartItems: cartItems.filter((item) => item.id !== id),
                     },
                     false,
                     'cart/removeFromCart',
                   )
             }
+            set((state) => ({ totalPrice: getPriceTotal(state.cartItems) }))
+            set((state) => ({
+              totalQuantity: getQuantityTotal(state.cartItems),
+            }))
           },
           removeItemCart: (id: string) => {
             const { cartItems } = get()
             set(
               () => ({
-                cartItems: cartItems.filter((item) => item.product.id !== id),
+                cartItems: cartItems.filter((item) => item.id !== id),
               }),
               false,
               'cart/removeItemCart',
             )
+            set((state) => ({ totalPrice: getPriceTotal(state.cartItems) }))
+            set((state) => ({
+              totalQuantity: getQuantityTotal(state.cartItems),
+            }))
           },
-          getCartItemsTotal: () => {
+          /* getCartItemsTotal: () => {
             const { cartItems } = get()
             return cartItems.reduce((total, item) => total + item.quantity, 0)
           },
@@ -118,12 +143,17 @@ export const useCartStore = createWithEqualityFn<State & Actions>()(
             const { cartItems } = get()
             return cartItems.reduce(
               (total, item) =>
-                total + (item.product?.attributes?.price ?? 0) * item.quantity,
+                total + (item.attributes?.price ?? 0) * item.quantity,
               0,
             )
+          }, */
+          clearCart: () => {
+            set(() => ({ cartItems: [] }), false, 'cart/clearCart')
+            set(() => ({ totalPrice: 0 }))
+            set(() => ({
+              totalQuantity: 0,
+            }))
           },
-          clearCart: () =>
-            set(() => ({ cartItems: [] }), false, 'cart/clearCart'),
         }),
         { name: 'cart' },
       ),

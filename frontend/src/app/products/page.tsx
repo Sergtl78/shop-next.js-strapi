@@ -1,9 +1,11 @@
+import Comments from '@/components/comments/comments'
 import MediaImage from '@/components/media-image'
 import CarouselProduct from '@/components/product/carousel_product'
 import { ColorsProduct } from '@/components/product/colors-product'
 import Counter from '@/components/product/counter'
 import DescriptionProduct from '@/components/product/description-product'
 import { MemoriesProduct } from '@/components/product/memories-product'
+import RecommendSlider from '@/components/recommend-slider'
 import { getProductsData } from '@/lib/api/product'
 
 type Props = {
@@ -23,6 +25,7 @@ const ProductPage = async ({ searchParams }: Props) => {
     memoryId: searchParams?.memoryId,
   })
   const product = products?.data[0]
+
   return (
     <section className='container'>
       <div className='grid md:grid-cols-5 w-full pt-8'>
@@ -33,13 +36,17 @@ const ProductPage = async ({ searchParams }: Props) => {
           <div className='flex flex-col w-full gap-4'>
             <div className='flex flex-row'>
               <h1>{product?.attributes?.name}</h1>
-              <MediaImage
-                image={
-                  product?.attributes?.collection?.data?.attributes?.icon?.data
-                    ?.attributes
-                }
-                className='w-10 h-10'
-              />
+              {product?.attributes?.collections?.data.map((item) => (
+                <div
+                  key={item.attributes?.name}
+                  className='flex flex-row gap-3'
+                >
+                  <MediaImage
+                    image={item.attributes?.icon?.data?.attributes}
+                    className='w-10 h-10'
+                  />
+                </div>
+              ))}
             </div>
             <DescriptionProduct
               description={product?.attributes?.description ?? ''}
@@ -85,6 +92,10 @@ const ProductPage = async ({ searchParams }: Props) => {
           {product && <Counter product={product} />}
         </div>
       </div>
+      <RecommendSlider
+        sub_categoryId={product?.attributes?.sub_category?.data?.id || ''}
+      />
+      <Comments productId={product?.id} />
     </section>
   )
 }

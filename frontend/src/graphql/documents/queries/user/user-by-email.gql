@@ -1,0 +1,15 @@
+query getUserByEmail ($email:String!){
+  usersPermissionsUsers(
+  filters:{
+    email:{eq:$email}
+  }){
+    data{
+      id
+      attributes{
+        username
+        email
+        blocked
+      }
+    }
+  }
+}

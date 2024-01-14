@@ -1,0 +1,23 @@
+mutation CreateComment (
+  $content:String
+  $userId:ID!
+  $productId:ID!
+  $rate:Int
+){
+  createComment (
+    data:{
+      content:$content
+      users_permissions_user:$userId
+      product:$productId
+      rate:$rate
+    }
+  ){
+    data{
+      id
+      attributes{
+        content
+        
+      }
+    }
+  }
+}

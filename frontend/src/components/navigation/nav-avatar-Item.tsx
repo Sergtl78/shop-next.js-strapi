@@ -2,12 +2,15 @@
 
 import { Icons } from '../Icons'
 
+import { logout } from '@/lib/api/auth'
+import { useAuthStore } from '@/store/authStore'
 import Link from 'next/link'
 import { DropdownMenuItem, DropdownMenuShortcut } from '../ui/dropdown-menu'
 
 type Props = {}
 
 export default function NavAvatarItem(props: Props) {
+  const clearAuthData = useAuthStore((state) => state.clearAuthData)
   return (
     <>
       <Link href={'/user'}>
@@ -26,7 +29,12 @@ export default function NavAvatarItem(props: Props) {
         <Icons.LifeBuoy className='mr-2 h-4 w-4' />
         <span>Поддержка</span>
       </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => {}}>
+      <DropdownMenuItem
+        onClick={() => {
+          logout()
+          clearAuthData()
+        }}
+      >
         <Icons.logOut className='mr-2 h-4 w-4' />
         <span>Выйти</span>
         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

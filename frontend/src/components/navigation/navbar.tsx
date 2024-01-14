@@ -1,6 +1,7 @@
 import { getCategoriesData } from '@/lib/api/categories'
 import { getALLProductsData } from '@/lib/api/product'
-import Cart from '../cart/cart'
+import { Suspense } from 'react'
+import CartSheet from '../cart/cart-sheet'
 import Logo from '../logo'
 import { ModeToggle } from './mode-toggle'
 import { AvatarUser } from './nav-avatar-user'
@@ -24,8 +25,12 @@ const Navbar = async () => {
               categories={categories?.data}
             />
           )}
-          <Cart />
-          <AvatarUser />
+          <Suspense fallback={<div className='w-10 h-10 bg-red-500' />}>
+            <CartSheet />
+          </Suspense>
+          <Suspense fallback={<div className='w-10 h-10 bg-red-500' />}>
+            <AvatarUser />
+          </Suspense>
           <ModeToggle />
         </div>
       </div>

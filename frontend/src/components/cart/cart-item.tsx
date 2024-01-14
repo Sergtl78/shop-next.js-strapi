@@ -1,35 +1,38 @@
 'use client'
 import { CartItem, useCartStore } from '@/store/cartState'
-import MediaImage from '../media-image'
-import { TrashIcon } from 'lucide-react'
+import { TrashIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
+import MediaImage from '../media-image'
 import { Button } from '../ui/button'
 import CounterCart from './counter-cart'
 
 type Props = {
   cartItem: CartItem
+  isPage?: boolean
 }
 
-const ItemCart = ({ cartItem }: Props) => {
+const ItemCart = ({ cartItem, isPage }: Props) => {
   const removeItemCart = useCartStore((state) => state.removeItemCart)
   return (
     <div className='flex flex-col  w-full items-center justify-between border border-border rounded-xl shadow-md space-x-5'>
       <div className='flex flex-row w-full items-center justify-between px-4 py-2 '>
-        <Link href={`/product?productId=${cartItem.product.id}`} className=''>
-          <div className='overflow-hidden flex shrink-0  w-20 h-20'>
-            <MediaImage
-              className='h-auto w-auto object-cover transition-all hover:scale-105 rounded-lg aspect-[4/4]'
-              image={cartItem.product?.attributes?.image.data[0].attributes}
-            />
-          </div>
-        </Link>
-        <h4 className='font-semibold ml-4 '>
-          {cartItem.product?.attributes?.name}
-        </h4>
-
+        <div className='flex flex-row items-center'>
+          <Link href={`/products?productId=${cartItem.id}`} className=''>
+            <div className='overflow-hidden flex shrink-0  w-20 h-20'>
+              <MediaImage
+                className='h-auto w-auto object-cover transition-all hover:scale-105 rounded-lg aspect-[4/4]'
+                image={cartItem.attributes?.image.data[0].attributes}
+              />
+            </div>
+          </Link>
+          <h4 className='text-sm font-semibold ml-4 '>
+            {cartItem.attributes?.name}
+          </h4>
+        </div>
+        {isPage && <CounterCart cartItem={cartItem} />}
         <Button
           className='group'
-          onClick={() => removeItemCart(cartItem.product.id || '')}
+          onClick={() => removeItemCart(cartItem.id || '')}
           variant={'ghost'}
           size={'icon'}
         >
@@ -37,9 +40,7 @@ const ItemCart = ({ cartItem }: Props) => {
         </Button>
       </div>
 
-      <div className='flex w-full px-4 py-2  '>
-        <CounterCart cartItem={cartItem} />
-      </div>
+      {!isPage && <CounterCart cartItem={cartItem} />}
     </div>
   )
 }

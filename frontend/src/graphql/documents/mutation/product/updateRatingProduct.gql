@@ -1,0 +1,16 @@
+mutation updateRatingProduct ($productId:ID!, $rate:Float){
+  updateProduct(
+    id:$productId, 
+    data:{
+      rating:$rate
+    }
+  ){
+    data{
+      id
+      attributes{
+        name
+        rating
+      }
+    }
+  }
+}

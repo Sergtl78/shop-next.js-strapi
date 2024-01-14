@@ -6,19 +6,28 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { ComponentSectionSliderCollection } from '@/graphql/generated'
+import {
+  ComponentSectionSliderCollection,
+  GetSubCategoryQuery,
+} from '@/graphql/generated'
 import Autoplay from 'embla-carousel-autoplay'
 import CardProduct from '../product/card-product'
 
 type Props = {
-  data: ComponentSectionSliderCollection
+  data:
+    | ComponentSectionSliderCollection
+    | NonNullable<
+        NonNullable<
+          NonNullable<GetSubCategoryQuery['subCategory']>['data']
+        >['attributes']
+      >['slider']
 }
 
 export function SliderCollection({ data }: Props) {
   return (
     <section className='w-full container mb-4 mt-8'>
-      <h2>{data.title}</h2>
-      <p className='mb-4'>{data.description}</p>
+      <h2>{data?.title}</h2>
+      <p className='mb-4'>{data?.description}</p>
       <Carousel
         opts={{
           align: 'start',
@@ -32,12 +41,10 @@ export function SliderCollection({ data }: Props) {
         className='w-full'
       >
         <CarouselContent>
-          {data.collection?.data?.attributes?.products?.data.map(
+          {data?.collection?.data?.attributes?.products?.data.map(
             (product, index) => (
               <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/6'>
-                {product.attributes && (
-                  <CardProduct data={product.attributes} id={product.id} />
-                )}
+                {product.attributes && <CardProduct data={product} />}
               </CarouselItem>
             ),
           )}

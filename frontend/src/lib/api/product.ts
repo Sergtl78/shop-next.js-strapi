@@ -8,11 +8,9 @@ export const getALLProductsData = cache(
     categoryId,
     sub_categoryId,
     page,
-    pageSize,
+    pageSize = 1000,
     start,
-    limit = 1000,
-    query,
-    sort,
+    limit,
   }: {
     categoryId?: string
     sub_categoryId?: string
@@ -20,8 +18,6 @@ export const getALLProductsData = cache(
     pageSize?: number
     start?: number
     limit?: number
-    query?: string
-    sort?: string
   }) => {
     try {
       const { products } = await gql.getProducts({
@@ -31,8 +27,6 @@ export const getALLProductsData = cache(
         pageSize,
         start,
         limit,
-        query,
-        sort,
       })
       return products
     } catch (error) {

@@ -1,20 +1,24 @@
+'use client'
 import { cn } from '@/lib/utils'
-import React from 'react'
+import { useCartStore } from '@/store/cartState'
 
 type Props = {
   className?: string
-  count?: number
 }
 
-const BadgeIcon = ({ className, count }: Props) => {
+const BadgeIcon = ({ className }: Props) => {
+  //const cartItems = useCartStore((state) => state.cartItems)
+  const cartItemTotal = useCartStore((state) => state.totalQuantity)
   return (
     <div
       className={cn(
         'absolute -top-3 -right-3 flex items-center justify-center w-5 h-5 rounded-full bg-primary border-primary border-2 ',
-        className
+        className,
       )}
     >
-      <span className="text-xs font-bold text-primary-foreground">{count}</span>
+      <span className='text-xs font-bold text-primary-foreground'>
+        {cartItemTotal}
+      </span>
     </div>
   )
 }

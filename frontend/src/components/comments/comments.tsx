@@ -3,10 +3,11 @@ import CommentForm from './comment-form'
 import CommentsList from './comments-list'
 
 type Props = {
-  productId?: string | null | undefined
+  sub_categoryId?: string | null | undefined
+  commentsPage?: string
 }
 
-const Comments = ({ productId }: Props) => {
+const Comments = ({ sub_categoryId, commentsPage }: Props) => {
   return (
     <section className='flex w-full mt-8 min-h-80 relative '>
       <Tabs defaultValue='comments' className='w-full max-w-sm md:max-w-2xl'>
@@ -15,10 +16,13 @@ const Comments = ({ productId }: Props) => {
           <TabsTrigger value='createComment'>Оставить отзыв</TabsTrigger>
         </TabsList>
         <TabsContent value='comments'>
-          <CommentsList productId={productId} />
+          <CommentsList
+            sub_categoryId={sub_categoryId}
+            commentsPage={commentsPage}
+          />
         </TabsContent>
         <TabsContent value='createComment'>
-          <CommentForm productId={productId} />
+          <CommentForm sub_categoryId={sub_categoryId} />
         </TabsContent>
       </Tabs>
     </section>

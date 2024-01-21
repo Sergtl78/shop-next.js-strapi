@@ -3,6 +3,7 @@ import { getALLProductsData } from '@/lib/api/product'
 import { Suspense } from 'react'
 import CartSheet from '../cart/cart-sheet'
 import Logo from '../logo'
+import { Skeleton } from '../ui/skeleton'
 import { ModeToggle } from './mode-toggle'
 import { AvatarUser } from './nav-avatar-user'
 import NavMenu from './nav-menu'
@@ -25,10 +26,10 @@ const Navbar = async () => {
               categories={categories?.data}
             />
           )}
-          <Suspense fallback={<div className='w-10 h-10 bg-red-500' />}>
+          <Suspense fallback={<Skeleton className='w-10 h-10 ' />}>
             <CartSheet />
           </Suspense>
-          <Suspense fallback={<div className='w-10 h-10 bg-red-500' />}>
+          <Suspense fallback={<Skeleton className='w-10 h-10' />}>
             <AvatarUser />
           </Suspense>
           <ModeToggle />

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import {
   AlertTriangle,
   ArrowRight,
@@ -5,37 +6,43 @@ import {
   ChevronRight,
   Clock,
   Heart,
-  HelpCircle,
-  Laptop,
   LifeBuoy,
-  Loader2,
   LogOut,
   LucideProps,
   Mail,
   MapPin,
   Menu,
+  MessageSquareMoreIcon,
   Moon,
+  PencilIcon,
   Phone,
   Plus,
   Search,
   Settings,
   ShoppingCart,
   SlidersHorizontal,
+  SmileIcon,
+  StarIcon,
   SunMedium,
   Trash,
   User,
   X,
-  type LucideIcon,
 } from 'lucide-react'
 
-export type Icon = LucideIcon
+interface IconProps extends React.InputHTMLAttributes<SVGSVGElement> {
+  name: keyof typeof Icons
+  className?: string
+}
+export function Icon({ name, className, ...props }: IconProps) {
+  let IconName = Icons[name]
+  return <IconName className={cn('w-4 h-4 mr-2 ', className)} />
+}
 
-export const Icons = {
+const Icons = {
   close: X,
   clock: Clock,
   cart: ShoppingCart,
   filter: SlidersHorizontal,
-  spinner: Loader2,
   search: Search,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
@@ -47,13 +54,15 @@ export const Icons = {
   warning: AlertTriangle,
   user: User,
   arrowRight: ArrowRight,
-  help: HelpCircle,
   logOut: LogOut,
   LifeBuoy: LifeBuoy,
   sun: SunMedium,
+  smile: SmileIcon,
   moon: Moon,
-  laptop: Laptop,
   menu: Menu,
+  message: MessageSquareMoreIcon,
+  pencil: PencilIcon,
+  star: StarIcon,
   logo: (props: LucideProps) => (
     <svg
       className='fill-primary'
@@ -248,3 +257,4 @@ export const Icons = {
     </div>
   ),
 }
+export type IconsType = keyof typeof Icons

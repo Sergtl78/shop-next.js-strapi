@@ -2,7 +2,7 @@
 import { GetCategoriesQuery, GetProductsQuery } from '@/graphql/generated'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Icons } from '../Icons'
+import { Icon } from '../Icons'
 import {
   CommandDialog,
   CommandEmpty,
@@ -22,8 +22,6 @@ export function SearchNav({ categories, products }: Props) {
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      console.log(e.key)
-
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
         setOpen((open) => !open)
@@ -35,7 +33,8 @@ export function SearchNav({ categories, products }: Props) {
 
   return (
     <>
-      <Icons.search
+      <Icon
+        name='search'
         onClick={() => setOpen(true)}
         className='w-6 h-6 cursor-pointer'
       />

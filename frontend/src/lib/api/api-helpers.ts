@@ -15,12 +15,10 @@ export function getStrapiMedia(url: string) {
     return ''
   }
 
-  // Return the full URL if the media is hosted on an external provider
   if (url.startsWith('http') || url.startsWith('//')) {
     return url
   }
 
-  // Otherwise prepend the URL path with the Strapi URL
   return `${getStrapiURL()}${url}`
 }
 
@@ -37,3 +35,22 @@ export function formatDate(dateString: string) {
 // ADDS DELAY TO SIMULATE SLOW API REMOVE FOR PRODUCTION
 export const delay = (time: number) =>
   new Promise((resolve) => setTimeout(() => resolve(1), time))
+
+export const formatStatus = (status: string): string => {
+  switch (status) {
+    case 'pending':
+      return 'Обрабатывается'
+
+    case 'processing':
+      return 'Отправлен'
+
+    case 'shipped':
+      return 'Доставлен'
+
+    case 'closed':
+      return 'Закрыт'
+
+    default:
+      return ''
+  }
+}

@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Icons } from '../Icons'
+import { Icon } from '../Icons'
 import { Button } from '../ui/button'
 import BadgeIcon from './badge-icon'
 
@@ -16,7 +16,7 @@ const CartNavIcon = () => {
       {mounted ? (
         <div className='relative flex w-8 h-8 items-center justify-center'>
           <Button variant={'ghost'} size={'icon'}>
-            <Icons.cart className='w-6 h-6 fill-foreground' />
+            <Icon name='cart' className='w-6 h-6 fill-foreground' />
           </Button>
           <BadgeIcon />
         </div>

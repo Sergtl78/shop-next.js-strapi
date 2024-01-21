@@ -50,12 +50,6 @@
     "rating": {
       "type": "decimal"
     },
-    "comments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::comment.comment",
-      "mappedBy": "product"
-    },
     "color": {
       "type": "relation",
       "relation": "manyToOne",

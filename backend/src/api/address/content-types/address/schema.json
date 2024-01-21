@@ -4,10 +4,11 @@
   "info": {
     "singularName": "address",
     "pluralName": "addresses",
-    "displayName": "Address"
+    "displayName": "Address",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -47,6 +48,10 @@
       "relation": "oneToOne",
       "target": "api::order.order",
       "mappedBy": "address"
+    },
+    "title": {
+      "type": "string",
+      "required": true
     }
   }
 }

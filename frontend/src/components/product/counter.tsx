@@ -3,7 +3,7 @@ import { GetProductsQuery } from '@/graphql/generated'
 import { formatPrice, getOldPrice } from '@/lib/utils'
 import { useCartStore } from '@/store/cartState'
 import { useState } from 'react'
-import { Icons } from '../Icons'
+import { Icon } from '../Icons'
 import { Button } from '../ui/button'
 
 type Props = {
@@ -56,7 +56,7 @@ const Counter = ({ product }: Props) => {
             {formatPrice(product.attributes?.price! * count)}
           </p>
           <Button onClick={() => addCart({ ...product, quantity: count })}>
-            <Icons.cart className='w-6 h-6 fill-primary-foreground' />
+            <Icon name='cart' className='w-6 h-6 fill-primary-foreground' />
           </Button>
         </div>
       </div>

@@ -2,7 +2,7 @@
 import { ArrowDownNarrowWideIcon, ArrowUpWideNarrow } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import { Icons } from '../Icons'
+import { Icon } from '../Icons'
 import { Button } from '../ui/button'
 
 const PriceFilter = () => {
@@ -49,7 +49,8 @@ const PriceFilter = () => {
         )}
       </Button>
       {(sort === 'price:asc' || sort === 'price:desc') && (
-        <Icons.close
+        <Icon
+          name='close'
           className='ml-2 w-4 h-4 cursor-pointer'
           onClick={() => createPageURL('clear_price_sort')}
         />

@@ -1,7 +1,8 @@
 {
   "collectionName": "components_element_cart_items",
   "info": {
-    "displayName": "Cart_item"
+    "displayName": "Cart_item",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -9,12 +10,6 @@
       "type": "integer",
       "required": true,
       "default": 1
-    },
-    "total_price": {
-      "type": "integer"
-    },
-    "total_quantity": {
-      "type": "integer"
     },
     "product": {
       "type": "relation",

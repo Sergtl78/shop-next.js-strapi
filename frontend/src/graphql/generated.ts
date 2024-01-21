@@ -41,9 +41,9 @@ export type Address = {
   house: Scalars['String']['output']
   order?: Maybe<OrderEntityResponse>
   postal_code: Scalars['String']['output']
-  publishedAt?: Maybe<Scalars['DateTime']['output']>
   region: Scalars['String']['output']
   street: Scalars['String']['output']
+  title: Scalars['String']['output']
   updatedAt?: Maybe<Scalars['DateTime']['output']>
   users_permissions_user?: Maybe<UsersPermissionsUserEntityResponse>
 }
@@ -76,9 +76,9 @@ export type AddressFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<AddressFiltersInput>>>
   order?: InputMaybe<OrderFiltersInput>
   postal_code?: InputMaybe<StringFilterInput>
-  publishedAt?: InputMaybe<DateTimeFilterInput>
   region?: InputMaybe<StringFilterInput>
   street?: InputMaybe<StringFilterInput>
+  title?: InputMaybe<StringFilterInput>
   updatedAt?: InputMaybe<DateTimeFilterInput>
   users_permissions_user?: InputMaybe<UsersPermissionsUserFiltersInput>
 }
@@ -89,9 +89,9 @@ export type AddressInput = {
   house?: InputMaybe<Scalars['String']['input']>
   order?: InputMaybe<Scalars['ID']['input']>
   postal_code?: InputMaybe<Scalars['String']['input']>
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>
   region?: InputMaybe<Scalars['String']['input']>
   street?: InputMaybe<Scalars['String']['input']>
+  title?: InputMaybe<Scalars['String']['input']>
   users_permissions_user?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -411,9 +411,9 @@ export type Comment = {
   __typename?: 'Comment'
   content?: Maybe<Scalars['String']['output']>
   createdAt?: Maybe<Scalars['DateTime']['output']>
-  product?: Maybe<ProductEntityResponse>
   publishedAt?: Maybe<Scalars['DateTime']['output']>
   rate: Scalars['Int']['output']
+  sub_category?: Maybe<SubCategoryEntityResponse>
   updatedAt?: Maybe<Scalars['DateTime']['output']>
   users_permissions_user?: Maybe<UsersPermissionsUserEntityResponse>
 }
@@ -442,18 +442,18 @@ export type CommentFiltersInput = {
   id?: InputMaybe<IdFilterInput>
   not?: InputMaybe<CommentFiltersInput>
   or?: InputMaybe<Array<InputMaybe<CommentFiltersInput>>>
-  product?: InputMaybe<ProductFiltersInput>
   publishedAt?: InputMaybe<DateTimeFilterInput>
   rate?: InputMaybe<IntFilterInput>
+  sub_category?: InputMaybe<SubCategoryFiltersInput>
   updatedAt?: InputMaybe<DateTimeFilterInput>
   users_permissions_user?: InputMaybe<UsersPermissionsUserFiltersInput>
 }
 
 export type CommentInput = {
   content?: InputMaybe<Scalars['String']['input']>
-  product?: InputMaybe<Scalars['ID']['input']>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
   rate?: InputMaybe<Scalars['Int']['input']>
+  sub_category?: InputMaybe<Scalars['ID']['input']>
   users_permissions_user?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -467,8 +467,6 @@ export type ComponentElementCartItem = {
   id: Scalars['ID']['output']
   product?: Maybe<ProductEntityResponse>
   quantity: Scalars['Int']['output']
-  total_price?: Maybe<Scalars['Int']['output']>
-  total_quantity?: Maybe<Scalars['Int']['output']>
 }
 
 export type ComponentElementCartItemFiltersInput = {
@@ -477,16 +475,12 @@ export type ComponentElementCartItemFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<ComponentElementCartItemFiltersInput>>>
   product?: InputMaybe<ProductFiltersInput>
   quantity?: InputMaybe<IntFilterInput>
-  total_price?: InputMaybe<IntFilterInput>
-  total_quantity?: InputMaybe<IntFilterInput>
 }
 
 export type ComponentElementCartItemInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   product?: InputMaybe<Scalars['ID']['input']>
   quantity?: InputMaybe<Scalars['Int']['input']>
-  total_price?: InputMaybe<Scalars['Int']['input']>
-  total_quantity?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type ComponentElementSlidePromo = {
@@ -693,6 +687,53 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']['input']>
 }
 
+export type Delivery = {
+  __typename?: 'Delivery'
+  createdAt?: Maybe<Scalars['DateTime']['output']>
+  description?: Maybe<Scalars['String']['output']>
+  price: Scalars['Int']['output']
+  publishedAt?: Maybe<Scalars['DateTime']['output']>
+  title: Scalars['String']['output']
+  updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type DeliveryEntity = {
+  __typename?: 'DeliveryEntity'
+  attributes?: Maybe<Delivery>
+  id?: Maybe<Scalars['ID']['output']>
+}
+
+export type DeliveryEntityResponse = {
+  __typename?: 'DeliveryEntityResponse'
+  data?: Maybe<DeliveryEntity>
+}
+
+export type DeliveryEntityResponseCollection = {
+  __typename?: 'DeliveryEntityResponseCollection'
+  data: Array<DeliveryEntity>
+  meta: ResponseCollectionMeta
+}
+
+export type DeliveryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<DeliveryFiltersInput>>>
+  createdAt?: InputMaybe<DateTimeFilterInput>
+  description?: InputMaybe<StringFilterInput>
+  id?: InputMaybe<IdFilterInput>
+  not?: InputMaybe<DeliveryFiltersInput>
+  or?: InputMaybe<Array<InputMaybe<DeliveryFiltersInput>>>
+  price?: InputMaybe<IntFilterInput>
+  publishedAt?: InputMaybe<DateTimeFilterInput>
+  title?: InputMaybe<StringFilterInput>
+  updatedAt?: InputMaybe<DateTimeFilterInput>
+}
+
+export type DeliveryInput = {
+  description?: InputMaybe<Scalars['String']['input']>
+  price?: InputMaybe<Scalars['Int']['input']>
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>
+  title?: InputMaybe<Scalars['String']['input']>
+}
+
 export enum Enum_Componentsharedmetasocial_Socialnetwork {
   Facebook = 'Facebook',
   Twitter = 'Twitter',
@@ -759,6 +800,7 @@ export type GenericMorph =
   | ComponentSharedLink
   | ComponentSharedMetaSocial
   | ComponentSharedSeo
+  | Delivery
   | Global
   | I18NLocale
   | Memory
@@ -1009,6 +1051,7 @@ export type Mutation = {
   createCollection?: Maybe<CollectionEntityResponse>
   createColor?: Maybe<ColorEntityResponse>
   createComment?: Maybe<CommentEntityResponse>
+  createDelivery?: Maybe<DeliveryEntityResponse>
   createMemory?: Maybe<MemoryEntityResponse>
   createOrder?: Maybe<OrderEntityResponse>
   createPage?: Maybe<PageEntityResponse>
@@ -1024,6 +1067,7 @@ export type Mutation = {
   deleteCollection?: Maybe<CollectionEntityResponse>
   deleteColor?: Maybe<ColorEntityResponse>
   deleteComment?: Maybe<CommentEntityResponse>
+  deleteDelivery?: Maybe<DeliveryEntityResponse>
   deleteGlobal?: Maybe<GlobalEntityResponse>
   deleteMemory?: Maybe<MemoryEntityResponse>
   deleteOrder?: Maybe<OrderEntityResponse>
@@ -1047,6 +1091,7 @@ export type Mutation = {
   updateCollection?: Maybe<CollectionEntityResponse>
   updateColor?: Maybe<ColorEntityResponse>
   updateComment?: Maybe<CommentEntityResponse>
+  updateDelivery?: Maybe<DeliveryEntityResponse>
   updateFileInfo: UploadFileEntityResponse
   updateGlobal?: Maybe<GlobalEntityResponse>
   updateMemory?: Maybe<MemoryEntityResponse>
@@ -1089,6 +1134,10 @@ export type MutationCreateColorArgs = {
 
 export type MutationCreateCommentArgs = {
   data: CommentInput
+}
+
+export type MutationCreateDeliveryArgs = {
+  data: DeliveryInput
 }
 
 export type MutationCreateMemoryArgs = {
@@ -1148,6 +1197,10 @@ export type MutationDeleteColorArgs = {
 }
 
 export type MutationDeleteCommentArgs = {
+  id: Scalars['ID']['input']
+}
+
+export type MutationDeleteDeliveryArgs = {
   id: Scalars['ID']['input']
 }
 
@@ -1250,6 +1303,11 @@ export type MutationUpdateCommentArgs = {
   id: Scalars['ID']['input']
 }
 
+export type MutationUpdateDeliveryArgs = {
+  data: DeliveryInput
+  id: Scalars['ID']['input']
+}
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID']['input']
   info?: InputMaybe<FileInfoInput>
@@ -1317,7 +1375,10 @@ export type Order = {
   address?: Maybe<AddressEntityResponse>
   cart?: Maybe<Array<Maybe<ComponentElementCartItem>>>
   createdAt?: Maybe<Scalars['DateTime']['output']>
+  delivery?: Maybe<DeliveryEntityResponse>
   status?: Maybe<Enum_Order_Status>
+  total_price?: Maybe<Scalars['Int']['output']>
+  total_quantity?: Maybe<Scalars['Int']['output']>
   updatedAt?: Maybe<Scalars['DateTime']['output']>
   users_permissions_user?: Maybe<UsersPermissionsUserEntityResponse>
 }
@@ -1350,10 +1411,13 @@ export type OrderFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<OrderFiltersInput>>>
   cart?: InputMaybe<ComponentElementCartItemFiltersInput>
   createdAt?: InputMaybe<DateTimeFilterInput>
+  delivery?: InputMaybe<DeliveryFiltersInput>
   id?: InputMaybe<IdFilterInput>
   not?: InputMaybe<OrderFiltersInput>
   or?: InputMaybe<Array<InputMaybe<OrderFiltersInput>>>
   status?: InputMaybe<StringFilterInput>
+  total_price?: InputMaybe<IntFilterInput>
+  total_quantity?: InputMaybe<IntFilterInput>
   updatedAt?: InputMaybe<DateTimeFilterInput>
   users_permissions_user?: InputMaybe<UsersPermissionsUserFiltersInput>
 }
@@ -1361,7 +1425,10 @@ export type OrderFiltersInput = {
 export type OrderInput = {
   address?: InputMaybe<Scalars['ID']['input']>
   cart?: InputMaybe<Array<InputMaybe<ComponentElementCartItemInput>>>
+  delivery?: InputMaybe<Scalars['ID']['input']>
   status?: InputMaybe<Enum_Order_Status>
+  total_price?: InputMaybe<Scalars['Int']['input']>
+  total_quantity?: InputMaybe<Scalars['Int']['input']>
   users_permissions_user?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -1448,7 +1515,6 @@ export type Product = {
   category?: Maybe<CategoryEntityResponse>
   collections?: Maybe<CollectionRelationResponseCollection>
   color?: Maybe<ColorEntityResponse>
-  comments?: Maybe<CommentRelationResponseCollection>
   createdAt?: Maybe<Scalars['DateTime']['output']>
   description?: Maybe<Scalars['String']['output']>
   image: UploadFileRelationResponseCollection
@@ -1464,13 +1530,6 @@ export type Product = {
 
 export type ProductCollectionsArgs = {
   filters?: InputMaybe<CollectionFiltersInput>
-  pagination?: InputMaybe<PaginationArg>
-  publicationState?: InputMaybe<PublicationState>
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
-}
-
-export type ProductCommentsArgs = {
-  filters?: InputMaybe<CommentFiltersInput>
   pagination?: InputMaybe<PaginationArg>
   publicationState?: InputMaybe<PublicationState>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
@@ -1505,7 +1564,6 @@ export type ProductFiltersInput = {
   category?: InputMaybe<CategoryFiltersInput>
   collections?: InputMaybe<CollectionFiltersInput>
   color?: InputMaybe<ColorFiltersInput>
-  comments?: InputMaybe<CommentFiltersInput>
   createdAt?: InputMaybe<DateTimeFilterInput>
   description?: InputMaybe<StringFilterInput>
   id?: InputMaybe<IdFilterInput>
@@ -1526,7 +1584,6 @@ export type ProductInput = {
   category?: InputMaybe<Scalars['ID']['input']>
   collections?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   color?: InputMaybe<Scalars['ID']['input']>
-  comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   description?: InputMaybe<Scalars['String']['input']>
   image?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   memory?: InputMaybe<Scalars['ID']['input']>
@@ -1562,6 +1619,8 @@ export type Query = {
   colors?: Maybe<ColorEntityResponseCollection>
   comment?: Maybe<CommentEntityResponse>
   comments?: Maybe<CommentEntityResponseCollection>
+  deliveries?: Maybe<DeliveryEntityResponseCollection>
+  delivery?: Maybe<DeliveryEntityResponse>
   global?: Maybe<GlobalEntityResponse>
   i18NLocale?: Maybe<I18NLocaleEntityResponse>
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>
@@ -1593,7 +1652,6 @@ export type QueryAddressArgs = {
 export type QueryAddressesArgs = {
   filters?: InputMaybe<AddressFiltersInput>
   pagination?: InputMaybe<PaginationArg>
-  publicationState?: InputMaybe<PublicationState>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
 }
 
@@ -1650,6 +1708,17 @@ export type QueryCommentsArgs = {
   pagination?: InputMaybe<PaginationArg>
   publicationState?: InputMaybe<PublicationState>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type QueryDeliveriesArgs = {
+  filters?: InputMaybe<DeliveryFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type QueryDeliveryArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type QueryGlobalArgs = {
@@ -1794,6 +1863,7 @@ export type SubCategory = {
   __typename?: 'SubCategory'
   category?: Maybe<CategoryEntityResponse>
   colors?: Maybe<ColorRelationResponseCollection>
+  comments?: Maybe<CommentRelationResponseCollection>
   createdAt?: Maybe<Scalars['DateTime']['output']>
   memories?: Maybe<MemoryRelationResponseCollection>
   name?: Maybe<Scalars['String']['output']>
@@ -1806,6 +1876,13 @@ export type SubCategory = {
 
 export type SubCategoryColorsArgs = {
   filters?: InputMaybe<ColorFiltersInput>
+  pagination?: InputMaybe<PaginationArg>
+  publicationState?: InputMaybe<PublicationState>
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type SubCategoryCommentsArgs = {
+  filters?: InputMaybe<CommentFiltersInput>
   pagination?: InputMaybe<PaginationArg>
   publicationState?: InputMaybe<PublicationState>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
@@ -1846,6 +1923,7 @@ export type SubCategoryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<SubCategoryFiltersInput>>>
   category?: InputMaybe<CategoryFiltersInput>
   colors?: InputMaybe<ColorFiltersInput>
+  comments?: InputMaybe<CommentFiltersInput>
   createdAt?: InputMaybe<DateTimeFilterInput>
   id?: InputMaybe<IdFilterInput>
   memories?: InputMaybe<MemoryFiltersInput>
@@ -1862,6 +1940,7 @@ export type SubCategoryFiltersInput = {
 export type SubCategoryInput = {
   category?: InputMaybe<Scalars['ID']['input']>
   colors?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
+  comments?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   memories?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
   name?: InputMaybe<Scalars['String']['input']>
   products?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>
@@ -2199,7 +2278,6 @@ export type UsersPermissionsUser = {
 export type UsersPermissionsUserAddressesArgs = {
   filters?: InputMaybe<AddressFiltersInput>
   pagination?: InputMaybe<PaginationArg>
-  publicationState?: InputMaybe<PublicationState>
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
 }
 
@@ -2273,6 +2351,25 @@ export type UsersPermissionsUserInput = {
 export type UsersPermissionsUserRelationResponseCollection = {
   __typename?: 'UsersPermissionsUserRelationResponseCollection'
   data: Array<UsersPermissionsUserEntity>
+}
+
+export type AddressFragment = {
+  __typename?: 'Address'
+  title: string
+  region: string
+  city: string
+  street: string
+  house: string
+  apartment?: string | null
+  postal_code: string
+  updatedAt?: any | null
+  users_permissions_user?: {
+    __typename?: 'UsersPermissionsUserEntityResponse'
+    data?: {
+      __typename?: 'UsersPermissionsUserEntity'
+      id?: string | null
+    } | null
+  } | null
 }
 
 export type CategoriesFragment = {
@@ -2695,6 +2792,101 @@ export type SliderCollectionFragment = {
   } | null
 }
 
+export type CreateAddressMutationVariables = Exact<{
+  region?: InputMaybe<Scalars['String']['input']>
+  city?: InputMaybe<Scalars['String']['input']>
+  street?: InputMaybe<Scalars['String']['input']>
+  house?: InputMaybe<Scalars['String']['input']>
+  apartment?: InputMaybe<Scalars['String']['input']>
+  postal_code?: InputMaybe<Scalars['String']['input']>
+  users_permissions_user?: InputMaybe<Scalars['ID']['input']>
+  order?: InputMaybe<Scalars['ID']['input']>
+  title?: InputMaybe<Scalars['String']['input']>
+}>
+
+export type CreateAddressMutation = {
+  __typename?: 'Mutation'
+  createAddress?: {
+    __typename?: 'AddressEntityResponse'
+    data?: {
+      __typename?: 'AddressEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Address'
+        title: string
+        region: string
+        city: string
+        street: string
+        house: string
+        apartment?: string | null
+        postal_code: string
+        updatedAt?: any | null
+        users_permissions_user?: {
+          __typename?: 'UsersPermissionsUserEntityResponse'
+          data?: {
+            __typename?: 'UsersPermissionsUserEntity'
+            id?: string | null
+          } | null
+        } | null
+      } | null
+    } | null
+  } | null
+}
+
+export type DeleteAddressMutationVariables = Exact<{
+  id: Scalars['ID']['input']
+}>
+
+export type DeleteAddressMutation = {
+  __typename?: 'Mutation'
+  deleteAddress?: {
+    __typename?: 'AddressEntityResponse'
+    data?: { __typename?: 'AddressEntity'; id?: string | null } | null
+  } | null
+}
+
+export type UpdateAddressMutationVariables = Exact<{
+  id: Scalars['ID']['input']
+  region?: InputMaybe<Scalars['String']['input']>
+  city?: InputMaybe<Scalars['String']['input']>
+  street?: InputMaybe<Scalars['String']['input']>
+  house?: InputMaybe<Scalars['String']['input']>
+  apartment?: InputMaybe<Scalars['String']['input']>
+  postal_code?: InputMaybe<Scalars['String']['input']>
+  users_permissions_user?: InputMaybe<Scalars['ID']['input']>
+  order?: InputMaybe<Scalars['ID']['input']>
+  title?: InputMaybe<Scalars['String']['input']>
+}>
+
+export type UpdateAddressMutation = {
+  __typename?: 'Mutation'
+  updateAddress?: {
+    __typename?: 'AddressEntityResponse'
+    data?: {
+      __typename?: 'AddressEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Address'
+        title: string
+        region: string
+        city: string
+        street: string
+        house: string
+        apartment?: string | null
+        postal_code: string
+        updatedAt?: any | null
+        users_permissions_user?: {
+          __typename?: 'UsersPermissionsUserEntityResponse'
+          data?: {
+            __typename?: 'UsersPermissionsUserEntity'
+            id?: string | null
+          } | null
+        } | null
+      } | null
+    } | null
+  } | null
+}
+
 export type LoginMutationVariables = Exact<{
   email: Scalars['String']['input']
   password: Scalars['String']['input']
@@ -2748,7 +2940,7 @@ export type RegisterMutation = {
 export type CreateCommentMutationVariables = Exact<{
   content?: InputMaybe<Scalars['String']['input']>
   userId: Scalars['ID']['input']
-  productId: Scalars['ID']['input']
+  sub_categoryId: Scalars['ID']['input']
   rate?: InputMaybe<Scalars['Int']['input']>
 }>
 
@@ -2760,6 +2952,74 @@ export type CreateCommentMutation = {
       __typename?: 'CommentEntity'
       id?: string | null
       attributes?: { __typename?: 'Comment'; content?: string | null } | null
+    } | null
+  } | null
+}
+
+export type CreateOrderMutationVariables = Exact<{
+  userId?: InputMaybe<Scalars['ID']['input']>
+  addressId?: InputMaybe<Scalars['ID']['input']>
+  deliveryId?: InputMaybe<Scalars['ID']['input']>
+  status?: InputMaybe<Enum_Order_Status>
+  total_price?: InputMaybe<Scalars['Int']['input']>
+  total_quantity?: InputMaybe<Scalars['Int']['input']>
+  cart?: InputMaybe<
+    | Array<InputMaybe<ComponentElementCartItemInput>>
+    | InputMaybe<ComponentElementCartItemInput>
+  >
+}>
+
+export type CreateOrderMutation = {
+  __typename?: 'Mutation'
+  createOrder?: {
+    __typename?: 'OrderEntityResponse'
+    data?: {
+      __typename?: 'OrderEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Order'
+        status?: Enum_Order_Status | null
+        total_price?: number | null
+        total_quantity?: number | null
+        createdAt?: any | null
+        updatedAt?: any | null
+        users_permissions_user?: {
+          __typename?: 'UsersPermissionsUserEntityResponse'
+          data?: {
+            __typename?: 'UsersPermissionsUserEntity'
+            id?: string | null
+          } | null
+        } | null
+        delivery?: {
+          __typename?: 'DeliveryEntityResponse'
+          data?: {
+            __typename?: 'DeliveryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Delivery'
+              title: string
+              price: number
+            } | null
+          } | null
+        } | null
+        address?: {
+          __typename?: 'AddressEntityResponse'
+          data?: { __typename?: 'AddressEntity'; id?: string | null } | null
+        } | null
+        cart?: Array<{
+          __typename?: 'ComponentElementCartItem'
+          id: string
+          quantity: number
+          product?: {
+            __typename?: 'ProductEntityResponse'
+            data?: {
+              __typename?: 'ProductEntity'
+              id?: string | null
+              attributes?: { __typename?: 'Product'; name: string } | null
+            } | null
+          } | null
+        } | null> | null
+      } | null
     } | null
   } | null
 }
@@ -2782,6 +3042,61 @@ export type UpdateRatingProductMutation = {
         rating?: number | null
       } | null
     } | null
+  } | null
+}
+
+export type UpdateUserMutationVariables = Exact<{
+  id: Scalars['ID']['input']
+  username?: InputMaybe<Scalars['String']['input']>
+  email?: InputMaybe<Scalars['String']['input']>
+}>
+
+export type UpdateUserMutation = {
+  __typename?: 'Mutation'
+  updateUsersPermissionsUser: {
+    __typename?: 'UsersPermissionsUserEntityResponse'
+    data?: {
+      __typename?: 'UsersPermissionsUserEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'UsersPermissionsUser'
+        username: string
+        email: string
+      } | null
+    } | null
+  }
+}
+
+export type GetAddressQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>
+}>
+
+export type GetAddressQuery = {
+  __typename?: 'Query'
+  addresses?: {
+    __typename?: 'AddressEntityResponseCollection'
+    data: Array<{
+      __typename?: 'AddressEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Address'
+        title: string
+        region: string
+        city: string
+        street: string
+        house: string
+        apartment?: string | null
+        postal_code: string
+        updatedAt?: any | null
+        users_permissions_user?: {
+          __typename?: 'UsersPermissionsUserEntityResponse'
+          data?: {
+            __typename?: 'UsersPermissionsUserEntity'
+            id?: string | null
+          } | null
+        } | null
+      } | null
+    }>
   } | null
 }
 
@@ -3138,7 +3453,9 @@ export type GetCategoryQuery = {
 }
 
 export type GetCommentsQueryVariables = Exact<{
-  productId?: InputMaybe<Scalars['ID']['input']>
+  sub_categoryId?: InputMaybe<Scalars['ID']['input']>
+  page?: InputMaybe<Scalars['Int']['input']>
+  pageSize?: InputMaybe<Scalars['Int']['input']>
 }>
 
 export type GetCommentsQuery = {
@@ -3166,6 +3483,35 @@ export type GetCommentsQuery = {
             } | null
           } | null
         } | null
+      } | null
+    }>
+    meta: {
+      __typename?: 'ResponseCollectionMeta'
+      pagination: {
+        __typename?: 'Pagination'
+        total: number
+        page: number
+        pageSize: number
+        pageCount: number
+      }
+    }
+  } | null
+}
+
+export type GetDeliveriesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetDeliveriesQuery = {
+  __typename?: 'Query'
+  deliveries?: {
+    __typename?: 'DeliveryEntityResponseCollection'
+    data: Array<{
+      __typename?: 'DeliveryEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Delivery'
+        title: string
+        description?: string | null
+        price: number
       } | null
     }>
   } | null
@@ -3495,6 +3841,187 @@ export type GetPagesQuery = {
           | { __typename: 'Error' }
           | null
         > | null
+      } | null
+    }>
+  } | null
+}
+
+export type GetOrderByUserIdQueryVariables = Exact<{
+  userId: Scalars['ID']['input']
+}>
+
+export type GetOrderByUserIdQuery = {
+  __typename?: 'Query'
+  orders?: {
+    __typename?: 'OrderEntityResponseCollection'
+    data: Array<{
+      __typename?: 'OrderEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'Order'
+        status?: Enum_Order_Status | null
+        total_price?: number | null
+        total_quantity?: number | null
+        createdAt?: any | null
+        updatedAt?: any | null
+        users_permissions_user?: {
+          __typename?: 'UsersPermissionsUserEntityResponse'
+          data?: {
+            __typename?: 'UsersPermissionsUserEntity'
+            id?: string | null
+          } | null
+        } | null
+        delivery?: {
+          __typename?: 'DeliveryEntityResponse'
+          data?: {
+            __typename?: 'DeliveryEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'Delivery'
+              title: string
+              price: number
+            } | null
+          } | null
+        } | null
+        address?: {
+          __typename?: 'AddressEntityResponse'
+          data?: {
+            __typename?: 'AddressEntity'
+            id?: string | null
+            attributes?: { __typename?: 'Address'; title: string } | null
+          } | null
+        } | null
+        cart?: Array<{
+          __typename?: 'ComponentElementCartItem'
+          id: string
+          quantity: number
+          product?: {
+            __typename?: 'ProductEntityResponse'
+            data?: {
+              __typename?: 'ProductEntity'
+              id?: string | null
+              attributes?: {
+                __typename?: 'Product'
+                name: string
+                slug?: string | null
+                description?: string | null
+                price?: number | null
+                rating?: number | null
+                image: {
+                  __typename?: 'UploadFileRelationResponseCollection'
+                  data: Array<{
+                    __typename?: 'UploadFileEntity'
+                    attributes?: {
+                      __typename?: 'UploadFile'
+                      name: string
+                      alternativeText?: string | null
+                      width?: number | null
+                      height?: number | null
+                      url: string
+                    } | null
+                  }>
+                }
+                collections?: {
+                  __typename?: 'CollectionRelationResponseCollection'
+                  data: Array<{
+                    __typename?: 'CollectionEntity'
+                    attributes?: {
+                      __typename?: 'Collection'
+                      name: string
+                      discount?: number | null
+                      icon?: {
+                        __typename?: 'UploadFileEntityResponse'
+                        data?: {
+                          __typename?: 'UploadFileEntity'
+                          attributes?: {
+                            __typename?: 'UploadFile'
+                            name: string
+                            alternativeText?: string | null
+                            width?: number | null
+                            height?: number | null
+                            url: string
+                          } | null
+                        } | null
+                      } | null
+                    } | null
+                  }>
+                } | null
+                color?: {
+                  __typename?: 'ColorEntityResponse'
+                  data?: {
+                    __typename?: 'ColorEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'Color'
+                      title: string
+                      color?: string | null
+                    } | null
+                  } | null
+                } | null
+                memory?: {
+                  __typename?: 'MemoryEntityResponse'
+                  data?: {
+                    __typename?: 'MemoryEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'Memory'
+                      value: number
+                      title: string
+                    } | null
+                  } | null
+                } | null
+                brand?: {
+                  __typename?: 'BrandEntityResponse'
+                  data?: {
+                    __typename?: 'BrandEntity'
+                    id?: string | null
+                  } | null
+                } | null
+                category?: {
+                  __typename?: 'CategoryEntityResponse'
+                  data?: {
+                    __typename?: 'CategoryEntity'
+                    id?: string | null
+                  } | null
+                } | null
+                sub_category?: {
+                  __typename?: 'SubCategoryEntityResponse'
+                  data?: {
+                    __typename?: 'SubCategoryEntity'
+                    id?: string | null
+                    attributes?: {
+                      __typename?: 'SubCategory'
+                      colors?: {
+                        __typename?: 'ColorRelationResponseCollection'
+                        data: Array<{
+                          __typename?: 'ColorEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Color'
+                            title: string
+                            color?: string | null
+                          } | null
+                        }>
+                      } | null
+                      memories?: {
+                        __typename?: 'MemoryRelationResponseCollection'
+                        data: Array<{
+                          __typename?: 'MemoryEntity'
+                          id?: string | null
+                          attributes?: {
+                            __typename?: 'Memory'
+                            title: string
+                            value: number
+                          } | null
+                        }>
+                      } | null
+                    } | null
+                  } | null
+                } | null
+              } | null
+            } | null
+          } | null
+        } | null> | null
       } | null
     }>
   } | null
@@ -3957,6 +4484,43 @@ export type GetSubCategoryQuery = {
   } | null
 }
 
+export type GetUserByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input']
+}>
+
+export type GetUserByIdQuery = {
+  __typename?: 'Query'
+  usersPermissionsUser?: {
+    __typename?: 'UsersPermissionsUserEntityResponse'
+    data?: {
+      __typename?: 'UsersPermissionsUserEntity'
+      id?: string | null
+      attributes?: {
+        __typename?: 'UsersPermissionsUser'
+        username: string
+        email: string
+        blocked?: boolean | null
+        confirmed?: boolean | null
+        avatar?: {
+          __typename?: 'UploadFileEntityResponse'
+          data?: {
+            __typename?: 'UploadFileEntity'
+            id?: string | null
+            attributes?: {
+              __typename?: 'UploadFile'
+              name: string
+              alternativeText?: string | null
+              width?: number | null
+              height?: number | null
+              url: string
+            } | null
+          } | null
+        } | null
+      } | null
+    } | null
+  } | null
+}
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>
 
 export type MeQuery = {
@@ -3999,6 +4563,23 @@ export type GetUserByEmailQuery = {
   } | null
 }
 
+export const AddressFragmentDoc = /*#__PURE__*/ `
+    fragment Address on Address {
+  title
+  region
+  city
+  street
+  house
+  apartment
+  postal_code
+  updatedAt
+  users_permissions_user {
+    data {
+      id
+    }
+  }
+}
+    `
 export const ImageFragmentDoc = /*#__PURE__*/ `
     fragment Image on UploadFile {
   name
@@ -4208,6 +4789,44 @@ export const SliderCollectionFragmentDoc = /*#__PURE__*/ `
   }
 }
     `
+export const CreateAddressDocument = /*#__PURE__*/ `
+    mutation createAddress($region: String, $city: String, $street: String, $house: String, $apartment: String, $postal_code: String, $users_permissions_user: ID, $order: ID, $title: String) {
+  createAddress(
+    data: {region: $region, city: $city, street: $street, house: $house, apartment: $apartment, postal_code: $postal_code, users_permissions_user: $users_permissions_user, order: $order, title: $title}
+  ) {
+    data {
+      id
+      attributes {
+        ...Address
+      }
+    }
+  }
+}
+    ${AddressFragmentDoc}`
+export const DeleteAddressDocument = /*#__PURE__*/ `
+    mutation deleteAddress($id: ID!) {
+  deleteAddress(id: $id) {
+    data {
+      id
+    }
+  }
+}
+    `
+export const UpdateAddressDocument = /*#__PURE__*/ `
+    mutation updateAddress($id: ID!, $region: String, $city: String, $street: String, $house: String, $apartment: String, $postal_code: String, $users_permissions_user: ID, $order: ID, $title: String) {
+  updateAddress(
+    id: $id
+    data: {region: $region, city: $city, street: $street, house: $house, apartment: $apartment, postal_code: $postal_code, users_permissions_user: $users_permissions_user, order: $order, title: $title}
+  ) {
+    data {
+      id
+      attributes {
+        ...Address
+      }
+    }
+  }
+}
+    ${AddressFragmentDoc}`
 export const LoginDocument = /*#__PURE__*/ `
     mutation login($email: String!, $password: String!) {
   login(input: {identifier: $email, password: $password, provider: "local"}) {
@@ -4243,14 +4862,63 @@ export const RegisterDocument = /*#__PURE__*/ `
 }
     `
 export const CreateCommentDocument = /*#__PURE__*/ `
-    mutation CreateComment($content: String, $userId: ID!, $productId: ID!, $rate: Int) {
+    mutation CreateComment($content: String, $userId: ID!, $sub_categoryId: ID!, $rate: Int) {
   createComment(
-    data: {content: $content, users_permissions_user: $userId, product: $productId, rate: $rate}
+    data: {content: $content, users_permissions_user: $userId, sub_category: $sub_categoryId, rate: $rate}
   ) {
     data {
       id
       attributes {
         content
+      }
+    }
+  }
+}
+    `
+export const CreateOrderDocument = /*#__PURE__*/ `
+    mutation createOrder($userId: ID, $addressId: ID, $deliveryId: ID, $status: ENUM_ORDER_STATUS, $total_price: Int, $total_quantity: Int, $cart: [ComponentElementCartItemInput]) {
+  createOrder(
+    data: {users_permissions_user: $userId, delivery: $deliveryId, address: $addressId, status: $status, total_price: $total_price, total_quantity: $total_quantity, cart: $cart}
+  ) {
+    data {
+      id
+      attributes {
+        status
+        total_price
+        total_quantity
+        createdAt
+        updatedAt
+        users_permissions_user {
+          data {
+            id
+          }
+        }
+        delivery {
+          data {
+            id
+            attributes {
+              title
+              price
+            }
+          }
+        }
+        address {
+          data {
+            id
+          }
+        }
+        cart {
+          id
+          quantity
+          product {
+            data {
+              id
+              attributes {
+                name
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -4269,6 +4937,31 @@ export const UpdateRatingProductDocument = /*#__PURE__*/ `
   }
 }
     `
+export const UpdateUserDocument = /*#__PURE__*/ `
+    mutation updateUser($id: ID!, $username: String, $email: String) {
+  updateUsersPermissionsUser(id: $id, data: {username: $username, email: $email}) {
+    data {
+      id
+      attributes {
+        username
+        email
+      }
+    }
+  }
+}
+    `
+export const GetAddressDocument = /*#__PURE__*/ `
+    query getAddress($id: ID) {
+  addresses(filters: {users_permissions_user: {id: {eq: $id}}}) {
+    data {
+      id
+      attributes {
+        ...Address
+      }
+    }
+  }
+}
+    ${AddressFragmentDoc}`
 export const GetBrandsDocument = /*#__PURE__*/ `
     query getBrands($id: ID) {
   brands(filters: {id: {eq: $id}}) {
@@ -4363,8 +5056,11 @@ export const GetCategoryDocument = /*#__PURE__*/ `
 ${ImageFragmentDoc}
 ${CollectionFragmentDoc}`
 export const GetCommentsDocument = /*#__PURE__*/ `
-    query getComments($productId: ID) {
-  comments(filters: {product: {id: {eq: $productId}}}) {
+    query getComments($sub_categoryId: ID, $page: Int, $pageSize: Int) {
+  comments(
+    pagination: {page: $page, pageSize: $pageSize}
+    filters: {sub_category: {id: {eq: $sub_categoryId}}}
+  ) {
     data {
       id
       attributes {
@@ -4381,6 +5077,28 @@ export const GetCommentsDocument = /*#__PURE__*/ `
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+  }
+}
+    `
+export const GetDeliveriesDocument = /*#__PURE__*/ `
+    query getDeliveries {
+  deliveries {
+    data {
+      id
+      attributes {
+        title
+        description
+        price
       }
     }
   }
@@ -4442,6 +5160,58 @@ ${CollectionFragmentDoc}
 ${ProductFragmentDoc}
 ${RichTextFragmentDoc}
 ${CategoriesFragmentDoc}`
+export const GetOrderByUserIdDocument = /*#__PURE__*/ `
+    query getOrderByUserId($userId: ID!) {
+  orders(filters: {users_permissions_user: {id: {eq: $userId}}}) {
+    data {
+      id
+      attributes {
+        status
+        total_price
+        total_quantity
+        createdAt
+        updatedAt
+        users_permissions_user {
+          data {
+            id
+          }
+        }
+        delivery {
+          data {
+            id
+            attributes {
+              title
+              price
+            }
+          }
+        }
+        address {
+          data {
+            id
+            attributes {
+              title
+            }
+          }
+        }
+        cart {
+          id
+          quantity
+          product {
+            data {
+              id
+              attributes {
+                ...Product
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    ${ProductFragmentDoc}
+${ImageFragmentDoc}
+${CollectionFragmentDoc}`
 export const GetProductDocument = /*#__PURE__*/ `
     query getProduct($id: ID!) {
   product(id: $id) {
@@ -4501,6 +5271,29 @@ export const GetSubCategoryDocument = /*#__PURE__*/ `
 ${CollectionFragmentDoc}
 ${ImageFragmentDoc}
 ${ProductFragmentDoc}`
+export const GetUserByIdDocument = /*#__PURE__*/ `
+    query getUserById($id: ID!) {
+  usersPermissionsUser(id: $id) {
+    data {
+      id
+      attributes {
+        username
+        email
+        blocked
+        confirmed
+        avatar {
+          data {
+            id
+            attributes {
+              ...Image
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    ${ImageFragmentDoc}`
 export const MeDocument = /*#__PURE__*/ `
     query me {
   me {
@@ -4552,6 +5345,54 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
+    createAddress(
+      variables?: CreateAddressMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<CreateAddressMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<CreateAddressMutation>(
+            CreateAddressDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'createAddress',
+        'mutation',
+        variables,
+      )
+    },
+    deleteAddress(
+      variables: DeleteAddressMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<DeleteAddressMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteAddressMutation>(
+            DeleteAddressDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'deleteAddress',
+        'mutation',
+        variables,
+      )
+    },
+    updateAddress(
+      variables: UpdateAddressMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<UpdateAddressMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateAddressMutation>(
+            UpdateAddressDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'updateAddress',
+        'mutation',
+        variables,
+      )
+    },
     login(
       variables: LoginMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
@@ -4598,6 +5439,21 @@ export function getSdk(
         variables,
       )
     },
+    createOrder(
+      variables?: CreateOrderMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<CreateOrderMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<CreateOrderMutation>(CreateOrderDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'createOrder',
+        'mutation',
+        variables,
+      )
+    },
     updateRatingProduct(
       variables: UpdateRatingProductMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
@@ -4611,6 +5467,36 @@ export function getSdk(
           ),
         'updateRatingProduct',
         'mutation',
+        variables,
+      )
+    },
+    updateUser(
+      variables: UpdateUserMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<UpdateUserMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateUserMutation>(UpdateUserDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'updateUser',
+        'mutation',
+        variables,
+      )
+    },
+    getAddress(
+      variables?: GetAddressQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetAddressQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetAddressQuery>(GetAddressDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'getAddress',
+        'query',
         variables,
       )
     },
@@ -4674,6 +5560,21 @@ export function getSdk(
         variables,
       )
     },
+    getDeliveries(
+      variables?: GetDeliveriesQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetDeliveriesQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetDeliveriesQuery>(GetDeliveriesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'getDeliveries',
+        'query',
+        variables,
+      )
+    },
     getGlobal(
       variables?: GetGlobalQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
@@ -4700,6 +5601,22 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'getPages',
+        'query',
+        variables,
+      )
+    },
+    getOrderByUserId(
+      variables: GetOrderByUserIdQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetOrderByUserIdQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetOrderByUserIdQuery>(
+            GetOrderByUserIdDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'getOrderByUserId',
         'query',
         variables,
       )
@@ -4746,6 +5663,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'getSubCategory',
+        'query',
+        variables,
+      )
+    },
+    getUserById(
+      variables: GetUserByIdQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetUserByIdQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserByIdQuery>(GetUserByIdDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'getUserById',
         'query',
         variables,
       )

@@ -1,14 +1,14 @@
 mutation CreateComment (
   $content:String
   $userId:ID!
-  $productId:ID!
+  $sub_categoryId:ID!
   $rate:Int
 ){
   createComment (
     data:{
       content:$content
       users_permissions_user:$userId
-      product:$productId
+      sub_category:$sub_categoryId
       rate:$rate
     }
   ){

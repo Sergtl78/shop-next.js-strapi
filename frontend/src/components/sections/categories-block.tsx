@@ -15,19 +15,23 @@ const CategoriesBlock = ({ data }: Props) => {
         <p className='mb-4'>{data.description}</p>
         <ul className='grid md:grid-cols-3 gap-4 w-full'>
           {data.categories?.data.map((category) => (
-            <li className='flex flex-col' key={category.attributes?.slug}>
-              <div className=' relative w-full rounded-2xl overflow-hidden bg-white px-4 py-2'>
-                <MediaImage
-                  className='object-contain aspect-video'
-                  image={category.attributes?.image?.data?.attributes}
-                />
-              </div>
-              <Link href={`/catalog/${category.id}`}>
+            <Link
+              href={`/catalog/${category.id}`}
+              key={category.attributes?.slug}
+            >
+              <li className='flex flex-col hover:shadow-2xl'>
+                <div className=' relative w-full rounded-2xl overflow-hidden bg-white px-4 py-2'>
+                  <MediaImage
+                    className='object-contain aspect-video'
+                    image={category.attributes?.image?.data?.attributes}
+                  />
+                </div>
+
                 <Button className='w-full' variant={'outline'}>
                   {category.attributes?.name}
                 </Button>
-              </Link>
-            </li>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>

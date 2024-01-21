@@ -1,0 +1,7 @@
+mutation deleteAddress ($id:ID!){
+  deleteAddress(id:$id){
+    data{
+      id
+    }
+  }
+}

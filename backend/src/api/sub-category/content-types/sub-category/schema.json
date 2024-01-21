@@ -47,6 +47,12 @@
       "type": "component",
       "repeatable": false,
       "component": "section.slider-collection"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "sub_category"
     }
   }
 }

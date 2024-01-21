@@ -2,15 +2,31 @@ import { formatDate } from '@/lib/api/api-helpers'
 import { getCommentsData } from '@/lib/api/comments'
 import { StarIcon } from 'lucide-react'
 import Separator from '../separator'
+import { CommentsPagination } from './comments-pagination'
 
 type Props = {
-  productId?: string | null | undefined
+  sub_categoryId?: string | null | undefined
+  commentsPage?: string
 }
 
-const CommentsList = async ({ productId }: Props) => {
-  const comments = await getCommentsData(productId ?? '')
+const CommentsList = async ({ sub_categoryId, commentsPage }: Props) => {
+  const comments = await getCommentsData({
+    sub_categoryId: sub_categoryId ?? '',
+    page: Number(commentsPage) ?? 1,
+    pageSize: 2,
+  })
+
   return (
     <div className='flex flex-col px-4 w-full '>
+      <CommentsPagination
+        pagination={{
+          page: comments?.meta.pagination.page || 1,
+          pageSize: comments?.meta.pagination.pageSize || 5,
+          total: comments?.meta.pagination.total || 0,
+          pageCount: comments?.meta.pagination.pageCount || 0,
+        }}
+      />
+
       {comments?.data && comments?.data.length < 1 ? (
         <div className='flex w-full items-center justify-start'>
           <p>Пока еще нет отзывов</p>

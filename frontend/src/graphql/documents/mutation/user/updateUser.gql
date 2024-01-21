@@ -1,0 +1,21 @@
+mutation updateUser (
+  $id:ID!
+  $username:String
+  $email:String
+){
+  updateUsersPermissionsUser(
+    id:$id
+    data:{
+      username:$username
+      email:$email
+    }
+  ){
+    data{
+      id
+      attributes{
+        username
+        email
+      }
+    }
+  }
+}

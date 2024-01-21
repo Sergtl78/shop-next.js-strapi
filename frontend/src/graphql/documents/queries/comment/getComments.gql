@@ -1,6 +1,11 @@
-query getComments ($productId:ID) {
-  comments (filters:{
-    product:{id:{eq:$productId}}
+query getComments ($sub_categoryId:ID $page:Int, $pageSize:Int) {
+  comments (
+    pagination:{
+      page:$page
+      pageSize:$pageSize
+    }
+    filters:{
+    sub_category:{id:{eq:$sub_categoryId}}
   }){
     data{
       id
@@ -18,6 +23,14 @@ query getComments ($productId:ID) {
             }
           }
         }
+      }
+    }
+    meta{
+      pagination{
+        total
+        page
+        pageSize
+        pageCount
       }
     }
   }  

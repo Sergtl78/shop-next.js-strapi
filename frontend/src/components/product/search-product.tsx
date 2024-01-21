@@ -1,7 +1,7 @@
 'use client'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useDebouncedCallback } from 'use-debounce'
-import { Icons } from '../Icons'
+import { Icon } from '../Icons'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 
@@ -36,7 +36,10 @@ const SearchProduct = (props: Props) => {
           }}
           defaultValue={searchParams.get('query')?.toString()}
         />
-        <Icons.search className='w-6 h-6 left-2 absolute top-1/2 -translate-y-1/2 stroke-muted-foreground' />
+        <Icon
+          name='search'
+          className='w-6 h-6 left-2 absolute top-1/2 -translate-y-1/2 stroke-muted-foreground'
+        />
       </Label>
     </>
   )

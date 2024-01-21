@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { register } from '@/lib/api/auth'
-import { useAuthStore } from '@/store/authStore'
+import { useAuthState } from '@/store/authState'
 import { redirect } from 'next/navigation'
 
 const FormSchema = z.object({
@@ -35,7 +35,7 @@ const FormSchema = z.object({
 })
 
 export function RegisterForm() {
-  const addAuthData = useAuthStore((state) => state.addAuthData)
+  const addAuthData = useAuthState((state) => state.addAuthData)
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -52,7 +52,14 @@ export function RegisterForm() {
       if (registerData.jwt) {
         addAuthData({
           jwt: registerData.jwt || '',
-          user: registerData.user,
+          user: {
+            data: {
+              attributes: {
+                email: registerData.user.email || '',
+                username: registerData.user.username,
+              },
+            },
+          },
           isAuth: true,
         })
         redirect('/')

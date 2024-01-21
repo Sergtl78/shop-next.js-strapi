@@ -4,7 +4,8 @@
   "info": {
     "singularName": "order",
     "pluralName": "orders",
-    "displayName": "Order"
+    "displayName": "Order",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -36,6 +37,17 @@
       "relation": "oneToOne",
       "target": "api::address.address",
       "inversedBy": "order"
+    },
+    "total_price": {
+      "type": "integer"
+    },
+    "total_quantity": {
+      "type": "integer"
+    },
+    "delivery": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::delivery.delivery"
     }
   }
 }

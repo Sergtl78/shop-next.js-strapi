@@ -1,0 +1,15 @@
+fragment Address on Address{
+        title
+        region
+        city
+        street
+        house
+        apartment
+        postal_code
+        updatedAt
+  users_permissions_user{
+    data{
+      id
+    }
+  }
+}

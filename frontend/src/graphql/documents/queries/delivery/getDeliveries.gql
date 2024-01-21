@@ -1,0 +1,12 @@
+query getDeliveries{
+  deliveries{
+    data{
+      id
+      attributes{
+        title
+        description
+        price
+      }
+    }
+  }
+}

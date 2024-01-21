@@ -1,13 +1,13 @@
 import { shallow } from 'zustand/shallow'
 import { createWithEqualityFn } from 'zustand/traditional'
 
-import { UsersPermissionsMe } from '@/graphql/generated'
+import { GetUserByIdQuery } from '@/graphql/generated'
 import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
 type State = {
   jwt: string
-  user: UsersPermissionsMe | null
+  user: GetUserByIdQuery['usersPermissionsUser']
   isAuth: boolean
 }
 
@@ -16,7 +16,7 @@ type Actions = {
   clearAuthData: () => void
 }
 
-export const useAuthStore = createWithEqualityFn<State & Actions>()(
+export const useAuthState = createWithEqualityFn<State & Actions>()(
   persist(
     immer(
       devtools(
@@ -26,11 +26,15 @@ export const useAuthStore = createWithEqualityFn<State & Actions>()(
           isAuth: false,
 
           addAuthData: (state) => {
-            set(state)
+            set(state, false, 'auth/addAuthData')
           },
 
           clearAuthData: () => {
-            set({ jwt: '', user: null, isAuth: false })
+            set(
+              { jwt: '', user: null, isAuth: false },
+              false,
+              'auth/clearAuthData',
+            )
           },
         }),
         { name: 'cart' },

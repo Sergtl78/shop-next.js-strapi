@@ -135,18 +135,7 @@ export const useCartStore = createWithEqualityFn<State & Actions>()(
               totalQuantity: getQuantityTotal(state.cartItems),
             }))
           },
-          /* getCartItemsTotal: () => {
-            const { cartItems } = get()
-            return cartItems.reduce((total, item) => total + item.quantity, 0)
-          },
-          getCartTotal: () => {
-            const { cartItems } = get()
-            return cartItems.reduce(
-              (total, item) =>
-                total + (item.attributes?.price ?? 0) * item.quantity,
-              0,
-            )
-          }, */
+
           clearCart: () => {
             set(() => ({ cartItems: [] }), false, 'cart/clearCart')
             set(() => ({ totalPrice: 0 }))

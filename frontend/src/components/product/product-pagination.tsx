@@ -37,7 +37,7 @@ export function ProductPagination({ data }: Props) {
           href={currentPage > 1 ? createPageURL(currentPage - 1) : '#'}
           className={currentPage === 1 ? 'cursor-not-allowed' : ''}
         />
-        <PaginationLink href={createPageURL(`data.page`)}>
+        <PaginationLink href={''}>
           {`${data.page}  из ${data.pageCount}`}
         </PaginationLink>
 

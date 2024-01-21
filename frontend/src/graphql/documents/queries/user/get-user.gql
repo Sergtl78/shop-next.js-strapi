@@ -1,0 +1,21 @@
+query getUserById ($id:ID!){
+  usersPermissionsUser(id:$id){
+    data{
+      id
+      attributes{
+        username
+        email
+        blocked
+        confirmed
+        avatar{
+          data{
+            id
+            attributes{
+              ...Image
+            }
+          }
+        }
+      }
+    }
+  }
+}

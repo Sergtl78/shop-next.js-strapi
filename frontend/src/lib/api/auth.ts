@@ -1,9 +1,10 @@
 'use server'
 
 import { gql } from '@/graphql/graphQLClient'
+import { useAuthState } from '@/store/authState'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { getUserByEmail } from './user'
+import { getUserByEmail, getUserById } from './user'
 
 export const login = async ({
   email,
@@ -13,16 +14,16 @@ export const login = async ({
   password: string
 }) => {
   try {
-    const { login: data } = await gql.login({
+    const { login } = await gql.login({
       email,
       password,
     })
 
-    if (data.jwt) {
-      cookies().set('asses-token-jwt', data.jwt)
-      console.log('login', data)
+    if (login.jwt) {
+      cookies().set('asses-token-jwt', login.jwt)
     }
-    return data
+    const user = await getUserById({ id: login.user.id })
+    return { jwt: login.jwt, user }
   } catch (error) {
     console.error(error)
     throw new Error('Server error please try again later.')
@@ -53,7 +54,17 @@ export const register = async ({
         password,
       })
 
-      if (register.jwt) cookies().set('asses-token', register.jwt)
+      if (register.jwt) {
+        cookies().set('asses-token', register.jwt)
+
+        const user = await getUserById({ id: register.user.id })
+
+        useAuthState.setState({
+          isAuth: true,
+          jwt: register.jwt,
+          user: user,
+        })
+      }
       return register
     } catch (error) {
       console.error(error)

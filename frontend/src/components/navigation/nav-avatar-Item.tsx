@@ -1,43 +1,38 @@
 'use client'
 
-import { Icons } from '../Icons'
-
 import { logout } from '@/lib/api/auth'
-import { useAuthStore } from '@/store/authStore'
+import { userMenu } from '@/lib/helpers/user-menu'
+import { useAuthState } from '@/store/authState'
 import Link from 'next/link'
-import { DropdownMenuItem, DropdownMenuShortcut } from '../ui/dropdown-menu'
+import { Icon } from '../Icons'
+import { DropdownMenuItem } from '../ui/dropdown-menu'
 
 type Props = {}
 
 export default function NavAvatarItem(props: Props) {
-  const clearAuthData = useAuthStore((state) => state.clearAuthData)
+  const clearAuthData = useAuthState((state) => state.clearAuthData)
+  const user = useAuthState((state) => state.user)
+  console.log(user)
+
   return (
     <>
-      <Link href={'/user'}>
-        <DropdownMenuItem>
-          <Icons.user className='mr-2 h-4 w-4' />
-          <span>Профиль</span>
-          <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </Link>
-      <DropdownMenuItem>
-        <Icons.settings className='mr-2 h-4 w-4' />
-        <span>Настройки</span>
-        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <Icons.LifeBuoy className='mr-2 h-4 w-4' />
-        <span>Поддержка</span>
-      </DropdownMenuItem>
+      {userMenu.map((menu) => (
+        <Link key={menu.id} href={`${menu.link}/${user?.data?.id}`}>
+          <DropdownMenuItem>
+            <Icon name={menu.icon} className='mr-2 h-4 w-4' />
+            <p>{menu.title}</p>
+          </DropdownMenuItem>
+        </Link>
+      ))}
+
       <DropdownMenuItem
         onClick={() => {
           logout()
           clearAuthData()
         }}
       >
-        <Icons.logOut className='mr-2 h-4 w-4' />
+        <Icon name='logOut' className='mr-2 h-4 w-4' />
         <span>Выйти</span>
-        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
       </DropdownMenuItem>
     </>
   )

@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { login } from '@/lib/api/auth'
-import { useAuthStore } from '@/store/authStore'
+import { useAuthState } from '@/store/authState'
 import { useRouter } from 'next/navigation'
 
 const FormSchema = z.object({
@@ -32,7 +32,7 @@ const FormSchema = z.object({
 })
 
 export function LoginForm() {
-  const addAuthData = useAuthStore((store) => store.addAuthData)
+  const addAuthData = useAuthState((store) => store.addAuthData)
   const { back } = useRouter()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -50,6 +50,7 @@ export function LoginForm() {
         user: loginData.user,
         isAuth: true,
       })
+
       back()
     }
 

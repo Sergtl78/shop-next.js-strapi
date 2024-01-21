@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { addComment } from '@/lib/api/comments'
-import { useAuthStore } from '@/store/authStore'
+import { useAuthState } from '@/store/authState'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -25,11 +25,11 @@ const FormSchema = z.object({
   content: z.string().min(3, { message: 'Должно быть не менее 3 символов.' }),
 })
 type Props = {
-  productId: string | null | undefined
+  sub_categoryId: string | null | undefined
 }
-const CommentForm = ({ productId }: Props) => {
-  const user = useAuthStore((state) => state.user)
-  const jwt = useAuthStore((state) => state.jwt)
+const CommentForm = ({ sub_categoryId }: Props) => {
+  const user = useAuthState((state) => state.user)
+  const jwt = useAuthState((state) => state.jwt)
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -41,12 +41,11 @@ const CommentForm = ({ productId }: Props) => {
   }
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     //
-    if (!productId) throw new Error('Нет productId')
-    if (user) {
+    if (!sub_categoryId) throw new Error('Нет sub_categoryId')
+    if (user && user?.data?.id) {
       const comment = await addComment({
-        jwt,
-        userId: user?.id,
-        productId,
+        userId: user.data.id,
+        sub_categoryId: sub_categoryId ?? '',
         content: data.content,
         rate: rating,
       })
@@ -89,7 +88,7 @@ const CommentForm = ({ productId }: Props) => {
         )}
         <Button
           type='submit'
-          disabled={!user?.id || rating < 1 || form.formState.isSubmitted}
+          disabled={!user?.data?.id || rating < 1 || form.formState.isSubmitted}
         >
           Отправить отзыв
         </Button>

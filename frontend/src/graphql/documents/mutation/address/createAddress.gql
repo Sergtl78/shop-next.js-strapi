@@ -1,0 +1,30 @@
+mutation createAddress (
+  $region: String
+  $city: String
+  $street: String
+  $house: String
+  $apartment: String
+  $postal_code: String
+  $users_permissions_user: ID
+  $order: ID
+  $title: String
+){
+  createAddress(data:{
+    region: $region
+    city: $city
+    street: $street
+    house: $house
+    apartment: $apartment
+    postal_code: $postal_code
+    users_permissions_user: $users_permissions_user
+    order: $order
+    title: $title
+  }){
+    data{
+      id
+      attributes{
+        ...Address
+      }
+    }
+  }
+}

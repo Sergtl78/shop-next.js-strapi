@@ -14,6 +14,7 @@ type Props = {
     sub_categoryId?: string
     colorId?: string
     memoryId?: string
+    commentsPage?: string
   }
 }
 
@@ -95,7 +96,10 @@ const ProductPage = async ({ searchParams }: Props) => {
       <RecommendSlider
         sub_categoryId={product?.attributes?.sub_category?.data?.id || ''}
       />
-      <Comments productId={product?.id} />
+      <Comments
+        sub_categoryId={product?.attributes?.sub_category?.data?.id || ''}
+        commentsPage={searchParams?.commentsPage}
+      />
     </section>
   )
 }

@@ -2,7 +2,7 @@
 
 import { GetProductsQuery } from '@/graphql/generated'
 import { useCartStore } from '@/store/cartState'
-import { Icons } from '../Icons'
+import { Icon } from '../Icons'
 import { Button } from '../ui/button'
 
 type Props = {
@@ -14,7 +14,7 @@ export default function ButtonAddCart({ product }: Props) {
   return (
     <div>
       <Button onClick={() => addCart({ ...product, quantity: 1 })}>
-        <Icons.cart className='w-6 h-6 fill-primary-foreground' />
+        <Icon name='cart' className='w-6 h-6 fill-primary-foreground' />
       </Button>
     </div>
   )

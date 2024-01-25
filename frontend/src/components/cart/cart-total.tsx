@@ -61,7 +61,7 @@ const CartTotal = (props: Props) => {
   }, [])
   return (
     <section className='sticky top-32 flex w-full h-60  rounded-2xl border border-border bg-card text-card-foreground p-4  '>
-      {mounted ? (
+      {mounted && (
         <div className='flex flex-col w-full h-full gap-2'>
           <CartResult />
           <div className='flex flex-col w-full h-full gap-2'>
@@ -80,8 +80,6 @@ const CartTotal = (props: Props) => {
             </div>
           </div>
         </div>
-      ) : (
-        <div className='h-full w-full animate-pulse' />
       )}
     </section>
   )

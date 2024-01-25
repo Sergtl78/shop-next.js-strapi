@@ -1,7 +1,7 @@
 'use client'
 import { GetCategoriesQuery, GetProductsQuery } from '@/graphql/generated'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Icon } from '../Icons'
 import {
   CommandDialog,
@@ -18,9 +18,9 @@ type Props = {
 }
 
 export function SearchNav({ categories, products }: Props) {
-  const [open, setOpen] = useState(false)
+  const [openCommand, setOpenCommand] = useState(false)
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
@@ -29,16 +29,18 @@ export function SearchNav({ categories, products }: Props) {
     }
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
-  }, [])
+  }, []) */
 
   return (
     <>
-      <Icon
-        name='search'
-        onClick={() => setOpen(true)}
-        className='w-6 h-6 cursor-pointer'
-      />
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <div>
+        <Icon
+          name='catalog'
+          onClick={() => setOpenCommand(true)}
+          className='w-6 h-6 cursor-pointer fill-foreground'
+        />
+      </div>
+      <CommandDialog open={openCommand} onOpenChange={setOpenCommand}>
         <CommandInput placeholder='Type a command or search...' />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
@@ -47,7 +49,7 @@ export function SearchNav({ categories, products }: Props) {
               <div key={category.id}>
                 <Link
                   key={category.attributes?.slug}
-                  onClick={() => setOpen(false)}
+                  onClick={() => setOpenCommand(false)}
                   href={`/catalog/${category.id}`}
                 >
                   <CommandItem className='hover:cursor-pointer'>
@@ -58,7 +60,7 @@ export function SearchNav({ categories, products }: Props) {
                 {category.attributes?.sub_categories?.data.map(
                   (sub_category) => (
                     <Link
-                      onClick={() => setOpen(false)}
+                      onClick={() => setOpenCommand(false)}
                       key={sub_category.attributes?.slug}
                       href={`/catalog/${category.id}/${sub_category.id}`}
                     >
@@ -74,7 +76,7 @@ export function SearchNav({ categories, products }: Props) {
             {products.map((product) => (
               <Link
                 key={product.attributes?.slug}
-                onClick={() => setOpen(false)}
+                onClick={() => setOpenCommand(false)}
                 href={`/products/${product.id}`}
               >
                 <CommandItem className='cursor-pointer'>

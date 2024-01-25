@@ -12,7 +12,7 @@ type Props = {
 const CartList = ({ isPage }: Props) => {
   const cartItems = useCartStore((state) => state.cartItems)
   return (
-    <div className='flex flex-col space-y-2'>
+    <div className='flex flex-col flex-1 space-y-2'>
       {cartItems && cartItems.length === 0 && (
         <div className=' flex flex-col w-full items-center justify-center'>
           <h3 className='h3'>Ваша корзина пуста</h3>

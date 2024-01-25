@@ -10,7 +10,7 @@ const CartResult = (props: Props) => {
   const totalPrice = useCartStore((store) => store.totalPrice)
   const totalQuantity = useCartStore((store) => store.totalQuantity)
   return (
-    <div className='flex flex-col w-full h-full gap-2'>
+    <div className=' flex flex-col w-full h-full gap-2 py-4 border-t'>
       <div className='flex flex-row items-center justify-between'>
         <span>Доставка: </span>
         <span>{formatPrice(deliveryPrice)}</span>

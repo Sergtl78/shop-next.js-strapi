@@ -23,7 +23,7 @@ const DialogUserUpdate = ({}: Props) => {
       </DialogTrigger>
       <DialogContent className='sm:max-w-md'>
         <DialogHeader>
-          <DialogTitle>Создать адрес</DialogTitle>
+          <DialogTitle>Изменить данные</DialogTitle>
         </DialogHeader>
         <FormUser />
       </DialogContent>

@@ -15,7 +15,7 @@ const Navbar = async () => {
     getALLProductsData({}),
   ])
   return (
-    <nav className='sticky left-0 top-0 z-20 flex h-16 w-full border-b border-border bg-background px-4 py-2 shadow md:h-20'>
+    <nav className='hidden md:flex sticky left-0 top-0 z-20  h-16 w-full border-b border-border bg-background px-4 py-2 shadow md:h-20'>
       <div className='container flex items-center justify-between'>
         <Logo title='Super Shop' />
         <NavMenu />

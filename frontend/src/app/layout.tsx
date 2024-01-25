@@ -1,4 +1,5 @@
 import Footer from '@/components/footer'
+import MobileNav from '@/components/navigation/mobile-nav'
 import Navbar from '@/components/navigation/navbar'
 import Provider from '@/components/providers/provider'
 import { Toaster } from '@/components/ui/toaster'
@@ -40,6 +41,7 @@ export default function RootLayout({
           <main className='relative flex min-h-screen flex-1 flex-col'>
             {children}
           </main>
+          <MobileNav />
           <Footer />
           <Toaster />
         </Provider>

@@ -1,6 +1,5 @@
 //import DeliveriesList from '@/components/delivery/deliveries-list'
 import { Icon } from '@/components/Icons'
-import DeliveriesAddressList from '@/components/delivery/deliveries-address-list'
 import { Button } from '@/components/ui/button'
 import { getDeliveries } from '@/lib/api/delivery'
 import dynamic from 'next/dynamic'
@@ -12,12 +11,18 @@ const DeliveriesList = dynamic(
     ssr: false,
   },
 )
+const DeliveriesAddressList = dynamic(
+  () => import('@/components/delivery/deliveries-address-list'),
+  {
+    ssr: false,
+  },
+)
 type Props = {}
 
 const DeliveryPage = async (props: Props) => {
   const deliveries = await getDeliveries()
   return (
-    <section className='flex flex-col w-full gap-4 mt-8'>
+    <div className='flex flex-col w-full gap-4 mt-8'>
       <div className='flex w-full flex-col-reverse md:flex-row items-center justify-between px-4'>
         <h2>Выберите доставку</h2>
         <Link href={'/cart'}>
@@ -29,7 +34,7 @@ const DeliveryPage = async (props: Props) => {
       </div>
       <DeliveriesList deliveries={deliveries} />
       <DeliveriesAddressList />
-    </section>
+    </div>
   )
 }
 

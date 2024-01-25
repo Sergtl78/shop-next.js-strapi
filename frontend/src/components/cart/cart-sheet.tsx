@@ -26,12 +26,12 @@ const CartSheet = (props: Props) => {
           <CartNavIcon />
         </div>
       </SheetTrigger>
-      <SheetContent className='md:max-w-lg'>
+      <SheetContent className='md:max-w-lg '>
         <SheetHeader>
           <CartHeader />
         </SheetHeader>
 
-        <ScrollArea className='h-[70vh]'>
+        <ScrollArea className='h-[60vh] md:h-[70vh]'>
           <CartList isPage={false} />
         </ScrollArea>
         <div className='flex flex-col gap-4'>

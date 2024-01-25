@@ -35,7 +35,7 @@ interface IconProps extends React.InputHTMLAttributes<SVGSVGElement> {
 }
 export function Icon({ name, className, ...props }: IconProps) {
   let IconName = Icons[name]
-  return <IconName className={cn('w-4 h-4 mr-2 ', className)} />
+  return <IconName className={cn('w-4 h-4 mr-2 ', className)} {...props} />
 }
 
 const Icons = {

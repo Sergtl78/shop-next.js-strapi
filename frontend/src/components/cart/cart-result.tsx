@@ -1,14 +1,21 @@
 'use client'
 import { formatPrice } from '@/lib/utils'
-import { useCartStore } from '@/store/cartState'
-import { useDeliveryState } from '@/store/deliveryState'
+import {
+  selectTotalPrice,
+  selectTotalQuantity,
+} from '@/redux/features/cart-slice'
+import { selectDeliveryPrice } from '@/redux/features/delivery-slice'
+import { useAppSelector } from '@/redux/hooks'
 
 type Props = {}
 
 const CartResult = (props: Props) => {
-  const deliveryPrice = useDeliveryState((state) => state.price)
-  const totalPrice = useCartStore((store) => store.totalPrice)
-  const totalQuantity = useCartStore((store) => store.totalQuantity)
+  const deliveryPrice = useAppSelector(selectDeliveryPrice)
+
+  console.log(deliveryPrice)
+
+  const totalPrice = useAppSelector(selectTotalPrice)
+  const totalQuantity = useAppSelector(selectTotalQuantity)
   return (
     <div className='flex flex-col w-full h-full gap-2'>
       <div className='flex flex-row items-center justify-between'>

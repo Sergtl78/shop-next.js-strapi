@@ -13,7 +13,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { addComment } from '@/lib/api/comments'
-import { useAuthState } from '@/store/authState'
+import { selectJwt, selectUser } from '@/redux/features/auth-slice'
+import { useAppSelector } from '@/redux/hooks'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -28,8 +29,8 @@ type Props = {
   sub_categoryId: string | null | undefined
 }
 const CommentForm = ({ sub_categoryId }: Props) => {
-  const user = useAuthState((state) => state.user)
-  const jwt = useAuthState((state) => state.jwt)
+  const user = useAppSelector(selectUser)
+  const jwt = useAppSelector(selectJwt)
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

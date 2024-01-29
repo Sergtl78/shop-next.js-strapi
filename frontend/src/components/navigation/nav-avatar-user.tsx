@@ -1,5 +1,6 @@
 'use client'
-import { useAuthState } from '@/store/authState'
+import { selectUser } from '@/redux/features/auth-slice'
+import { useAppSelector } from '@/redux/hooks'
 import { PersonIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -11,10 +12,9 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import NavAvatarItem from './nav-avatar-Item'
-
 export function AvatarUser() {
-  const isAuth = useAuthState((store) => store.isAuth)
-  const user = useAuthState((store) => store.user)
+  const isAuth = useAppSelector((store) => store.auth.isAuth)
+  const user = useAppSelector(selectUser)
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => {

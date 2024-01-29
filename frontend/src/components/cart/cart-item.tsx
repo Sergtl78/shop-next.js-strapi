@@ -1,5 +1,6 @@
 'use client'
-import { CartItem, useCartStore } from '@/store/cartState'
+import { CartItem, cartActions } from '@/redux/features/cart-slice'
+import { useActionCreators } from '@/redux/hooks'
 import { TrashIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import MediaImage from '../media-image'
@@ -12,7 +13,7 @@ type Props = {
 }
 
 const ItemCart = ({ cartItem, isPage }: Props) => {
-  const removeItemCart = useCartStore((state) => state.removeItemCart)
+  const actions = useActionCreators(cartActions)
   return (
     <div className='flex flex-col  w-full items-center justify-between border border-border rounded-xl shadow-md space-x-5'>
       <div className='flex flex-row w-full items-center justify-between px-4 py-2 '>
@@ -32,7 +33,7 @@ const ItemCart = ({ cartItem, isPage }: Props) => {
         {isPage && <CounterCart cartItem={cartItem} />}
         <Button
           className='group'
-          onClick={() => removeItemCart(cartItem.id || '')}
+          onClick={() => actions.removeItemCart({ id: cartItem.id || '' })}
           variant={'ghost'}
           size={'icon'}
         >

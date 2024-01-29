@@ -4,9 +4,19 @@ import {
   Enum_Order_Status,
 } from '@/graphql/generated'
 import { createOrder } from '@/lib/api/order'
-import { useAuthState } from '@/store/authState'
-import { useCartStore } from '@/store/cartState'
-import { useDeliveryState } from '@/store/deliveryState'
+import { selectUser } from '@/redux/features/auth-slice'
+import {
+  cartActions,
+  selectCart,
+  selectTotalPrice,
+  selectTotalQuantity,
+} from '@/redux/features/cart-slice'
+import {
+  selectAddressId,
+  selectDeliveryId,
+  selectDeliveryPrice,
+} from '@/redux/features/delivery-slice'
+import { useActionCreators, useAppSelector } from '@/redux/hooks'
 import { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
@@ -17,14 +27,14 @@ type Props = {}
 
 const CartTotal = (props: Props) => {
   const [mounted, setMounted] = useState(false)
-  const user = useAuthState((state) => state.user)
-  const addressId = useDeliveryState((state) => state.addressId)
-  const deliveryPrice = useDeliveryState((state) => state.price)
-  const deliveryId = useDeliveryState((state) => state.id)
-  const cartTotalPrice = useCartStore((state) => state.totalPrice)
-  const totalQuantity = useCartStore((state) => state.totalQuantity)
-  const cartItems = useCartStore((state) => state.cartItems)
-  const clearCart = useCartStore((state) => state.clearCart)
+  const user = useAppSelector(selectUser)
+  const addressId = useAppSelector(selectAddressId)
+  const deliveryPrice = useAppSelector(selectDeliveryPrice)
+  const deliveryId = useAppSelector(selectDeliveryId)
+  const cartTotalPrice = useAppSelector(selectTotalPrice)
+  const totalQuantity = useAppSelector(selectTotalQuantity)
+  const cartItems = useAppSelector(selectCart)
+  const actions = useActionCreators(cartActions)
 
   const cartForOrder: ComponentElementCartItemInput[] = cartItems.map(
     (item) => {
@@ -46,7 +56,7 @@ const CartTotal = (props: Props) => {
         cart: cartForOrder,
       })
       if (order) {
-        clearCart()
+        actions.clearCart()
         return toast({
           title: 'Спасибо за ваш заказ',
           type: 'foreground',

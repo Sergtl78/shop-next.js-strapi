@@ -16,7 +16,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { login } from '@/lib/api/auth'
-import { useAuthState } from '@/store/authState'
+import { authActions } from '@/redux/features/auth-slice'
+import { useActionCreators } from '@/redux/hooks'
 import { useRouter } from 'next/navigation'
 
 const FormSchema = z.object({
@@ -32,7 +33,7 @@ const FormSchema = z.object({
 })
 
 export function LoginForm() {
-  const addAuthData = useAuthState((store) => store.addAuthData)
+  const actions = useActionCreators(authActions)
   const { back } = useRouter()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -45,7 +46,7 @@ export function LoginForm() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const loginData = await login(data)
     if (loginData.jwt) {
-      addAuthData({
+      actions.addAuthData({
         jwt: loginData.jwt || '',
         user: loginData.user,
         isAuth: true,

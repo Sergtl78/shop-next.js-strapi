@@ -1,7 +1,8 @@
 'use client'
 
 import { GetProductsQuery } from '@/graphql/generated'
-import { useCartStore } from '@/store/cartState'
+import { cartActions } from '@/redux/features/cart-slice'
+import { useActionCreators } from '@/redux/hooks'
 import { Icon } from '../Icons'
 import { Button } from '../ui/button'
 
@@ -10,10 +11,10 @@ type Props = {
 }
 
 export default function ButtonAddCart({ product }: Props) {
-  const addCart = useCartStore((state) => state.addCart)
+  const actions = useActionCreators(cartActions)
   return (
     <div>
-      <Button onClick={() => addCart({ ...product, quantity: 1 })}>
+      <Button onClick={() => actions.addCart({ ...product, quantity: 1 })}>
         <Icon name='cart' className='w-6 h-6 fill-primary-foreground' />
       </Button>
     </div>

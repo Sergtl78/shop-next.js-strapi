@@ -24,7 +24,6 @@ const PriceFilter = () => {
     replace(`${pathname}?${params.toString()}`)
   }
   const sort = searchParams.get('price_sort')
-  console.log(sort)
 
   return (
     <div className='flex flex-row items-center'>

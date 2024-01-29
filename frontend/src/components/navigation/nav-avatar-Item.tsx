@@ -2,17 +2,22 @@
 
 import { logout } from '@/lib/api/auth'
 import { userMenu } from '@/lib/helpers/user-menu'
-import { useAuthState } from '@/store/authState'
+import { authActions, selectUser } from '@/redux/features/auth-slice'
+import { cartActions } from '@/redux/features/cart-slice'
+import { deliveryActions } from '@/redux/features/delivery-slice'
 import Link from 'next/link'
+import { useActionCreators, useAppSelector } from '../../redux/hooks'
 import { Icon } from '../Icons'
 import { DropdownMenuItem } from '../ui/dropdown-menu'
 
 type Props = {}
 
 export default function NavAvatarItem(props: Props) {
-  const clearAuthData = useAuthState((state) => state.clearAuthData)
-  const user = useAuthState((state) => state.user)
-  console.log(user)
+  const actionsAuth = useActionCreators(authActions)
+  const actionsCart = useActionCreators(cartActions)
+  const actionsDelivery = useActionCreators(deliveryActions)
+
+  const user = useAppSelector(selectUser)
 
   return (
     <>
@@ -28,7 +33,9 @@ export default function NavAvatarItem(props: Props) {
       <DropdownMenuItem
         onClick={() => {
           logout()
-          clearAuthData()
+          actionsAuth.clearAuthData()
+          actionsCart.clearCart()
+          actionsDelivery.clearDelivery()
         }}
       >
         <Icon name='logOut' className='mr-2 h-4 w-4' />

@@ -1,7 +1,6 @@
 'use server'
 
 import { gql } from '@/graphql/graphQLClient'
-import { useAuthState } from '@/store/authState'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getUserByEmail, getUserById } from './user'
@@ -58,12 +57,6 @@ export const register = async ({
         cookies().set('asses-token', register.jwt)
 
         const user = await getUserById({ id: register.user.id })
-
-        useAuthState.setState({
-          isAuth: true,
-          jwt: register.jwt,
-          user: user,
-        })
       }
       return register
     } catch (error) {

@@ -1,7 +1,8 @@
 'use client'
 import { GetProductsQuery } from '@/graphql/generated'
 import { formatPrice, getOldPrice } from '@/lib/utils'
-import { useCartStore } from '@/store/cartState'
+import { cartActions } from '@/redux/features/cart-slice'
+import { useActionCreators } from '@/redux/hooks'
 import { useState } from 'react'
 import { Icon } from '../Icons'
 import { Button } from '../ui/button'
@@ -12,7 +13,7 @@ type Props = {
 
 const Counter = ({ product }: Props) => {
   const [count, setCount] = useState(1)
-  const addCart = useCartStore((store) => store.addCart)
+  const actions = useActionCreators(cartActions)
   return (
     <div className='flex flex-row w-full max-w-sm justify-between items-center my-4'>
       <div className='flex items-center justify-center'>
@@ -55,7 +56,9 @@ const Counter = ({ product }: Props) => {
           <p className='text-2xl font-semibold'>
             {formatPrice(product.attributes?.price! * count)}
           </p>
-          <Button onClick={() => addCart({ ...product, quantity: count })}>
+          <Button
+            onClick={() => actions.addCart({ ...product, quantity: count })}
+          >
             <Icon name='cart' className='w-6 h-6 fill-primary-foreground' />
           </Button>
         </div>

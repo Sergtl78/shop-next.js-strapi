@@ -1,7 +1,8 @@
 'use client'
 
 import { formatPrice, getOldPrice } from '@/lib/utils'
-import { CartItem, useCartStore } from '@/store/cartState'
+import { CartItem, cartActions } from '@/redux/features/cart-slice'
+import { useActionCreators } from '@/redux/hooks'
 import { Button } from '../ui/button'
 
 type Props = {
@@ -13,14 +14,13 @@ type Props = {
 } & React.HTMLAttributes<HTMLDivElement>
 
 const CounterCart = ({ cartItem, increment = 1, decrement = 1 }: Props) => {
-  const addFromCart = useCartStore((state) => state.addFromCart)
-  const removeFromCart = useCartStore((state) => state.removeFromCart)
+  const actions = useActionCreators(cartActions)
 
   const handleIncrement = () => {
-    addFromCart(cartItem.id || '', increment)
+    actions.addFromCart({ id: cartItem.id ?? '', count: increment })
   }
   const handleDecrement = () => {
-    removeFromCart(cartItem.id || '', decrement)
+    actions.removeFromCart({ id: cartItem.id ?? '', count: decrement })
   }
 
   return (

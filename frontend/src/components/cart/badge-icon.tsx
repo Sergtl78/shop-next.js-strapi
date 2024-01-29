@@ -1,14 +1,14 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { useCartStore } from '@/store/cartState'
+import { selectTotalQuantity } from '@/redux/features/cart-slice'
+import { useAppSelector } from '@/redux/hooks'
 
 type Props = {
   className?: string
 }
 
 const BadgeIcon = ({ className }: Props) => {
-  //const cartItems = useCartStore((state) => state.cartItems)
-  const cartItemTotal = useCartStore((state) => state.totalQuantity)
+  const cartItemTotal = useAppSelector(selectTotalQuantity)
   return (
     <div
       className={cn(

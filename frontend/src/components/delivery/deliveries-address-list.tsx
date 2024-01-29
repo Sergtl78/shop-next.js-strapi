@@ -1,31 +1,28 @@
 'use client'
-import { Label } from '@/components/ui/label'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { GetAddressQuery } from '@/graphql/generated'
 import { getAddress } from '@/lib/api/address'
 import { cn } from '@/lib/utils'
-import { useAuthState } from '@/store/authState'
-import { useDeliveryState } from '@/store/deliveryState'
-import { FormEvent, useEffect, useState } from 'react'
+import { selectUser } from '@/redux/features/auth-slice'
+import {
+  deliveryActions,
+  selectAddressId,
+  selectDeliveryId,
+} from '@/redux/features/delivery-slice'
+import { useActionCreators, useAppSelector } from '@/redux/hooks'
+import { useEffect, useState } from 'react'
 import DialogAddressCreate from '../user/address/dialog-address-create'
 import DeliveryAddressItem from './delivery-address-item'
 
 type Props = {}
 
 const DeliveriesAddressList = ({}: Props) => {
-  const user = useAuthState((stare) => stare.user)
-  const addAddressId = useDeliveryState((state) => state.addAddressId)
+  const user = useAppSelector(selectUser)
+  const actions = useActionCreators(deliveryActions)
+  const deliveryId = useAppSelector(selectDeliveryId)
+  const addressId = useAppSelector(selectAddressId)
+
   const [addresses, setAddresses] = useState<GetAddressQuery['addresses']>()
-  const [id, setId] = useState('1')
-  const deliveryId = useDeliveryState((state) => state.id)
 
-  const handleChange = (e: FormEvent<HTMLButtonElement>) => {
-    setId(e.currentTarget.value)
-  }
-
-  addresses?.data.forEach((delivery) => {
-    id == delivery.id ? addAddressId(id) : delivery
-  })
   useEffect(() => {
     user?.data?.id &&
       getAddress({ id: user?.data?.id }).then((res) => setAddresses(res))
@@ -38,32 +35,27 @@ const DeliveriesAddressList = ({}: Props) => {
         <DialogAddressCreate />
       </div>
       {addresses?.data && addresses?.data.length > 0 ? (
-        <RadioGroup defaultValue={addresses?.data[0].id || '1'}>
-          {addresses?.data.map((address) => (
+        addresses?.data.map((address) => (
+          <div
+            key={address.id}
+            className={cn(
+              'flex items-center space-x-4 border rounded-2xl px-4 py-2 mx-4',
+              addressId === address.id && 'border-primary',
+            )}
+          >
             <div
-              key={address.id}
-              className={cn(
-                'flex items-center space-x-4 border rounded-2xl px-4 py-2 mx-4',
-                id == address.id && 'border-primary',
-              )}
+              onClick={() =>
+                actions.addAddressId({ addressId: address.id ?? '1' })
+              }
+              className='w-full flex flex-col md:flex-row items-center justify-between'
             >
-              <RadioGroupItem
-                value={address.id ?? '1'}
-                id={'address' + address.id ?? '1'}
-                onClick={(e) => handleChange(e)}
+              <DeliveryAddressItem
+                address={address}
+                userId={user?.data?.id || ''}
               />
-              <Label
-                htmlFor={'address' + address.id ?? '1'}
-                className='w-full flex flex-col md:flex-row items-center justify-between'
-              >
-                <DeliveryAddressItem
-                  address={address}
-                  userId={user?.data?.id || ''}
-                />
-              </Label>
             </div>
-          ))}
-        </RadioGroup>
+          </div>
+        ))
       ) : (
         <div className='flex flex-col gap-4'>
           <p>Нет сохраненных адресов</p>

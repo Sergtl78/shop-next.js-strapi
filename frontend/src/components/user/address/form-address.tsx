@@ -19,7 +19,8 @@ import { toast } from '@/components/ui/use-toast'
 import { GetAddressQuery } from '@/graphql/generated'
 import { createAddress, updateAddress } from '@/lib/api/address'
 import { addressFormData } from '@/lib/helpers/form-data'
-import { useAuthState } from '@/store/authState'
+import { selectUser } from '@/redux/features/auth-slice'
+import { useAppSelector } from '@/redux/hooks'
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { useRouter } from 'next/navigation'
 
@@ -48,7 +49,7 @@ type Props = {
   updateData?: NonNullable<GetAddressQuery['addresses']>['data'][0]
 }
 const FormAddress = ({ updateData }: Props) => {
-  const user = useAuthState((store) => store.user)
+  const user = useAppSelector(selectUser)
   const { refresh } = useRouter()
 
   const form = useForm<z.infer<typeof FormSchema>>({

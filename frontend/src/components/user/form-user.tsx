@@ -17,7 +17,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { updateUser } from '@/lib/api/user'
-import { useAuthState } from '@/store/authState'
+import { authActions } from '@/redux/features/auth-slice'
+import { selectUser, useActionCreators, useAppSelector } from '@/redux/store'
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { useRouter } from 'next/navigation'
 
@@ -33,7 +34,8 @@ const FormSchema = z.object({
 type Props = {}
 
 const FormUser = () => {
-  const user = useAuthState((store) => store.user)
+  const user = useAppSelector(selectUser)
+  const actionsAuth = useActionCreators(authActions)
   const { refresh } = useRouter()
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -45,7 +47,14 @@ const FormUser = () => {
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    !!user?.data?.id && (await updateUser({ id: user.data.id, ...data }))
+    if (!!user?.data?.id) {
+      const userUpdate = await updateUser({ id: user.data.id, ...data })
+      if (userUpdate) {
+        actionsAuth.updateUser({
+          data: user.data,
+        })
+      }
+    }
     toast({
       title: 'You submitted the following values:',
       description: (

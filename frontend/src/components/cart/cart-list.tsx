@@ -1,5 +1,6 @@
 'use client'
-import { useCartStore } from '@/store/cartState'
+import { selectCart } from '@/redux/features/cart-slice'
+import { useAppSelector } from '@/redux/hooks'
 import Link from 'next/link'
 import { Button } from '../ui/button'
 import { SheetClose } from '../ui/sheet'
@@ -10,7 +11,7 @@ type Props = {
 }
 
 const CartList = ({ isPage }: Props) => {
-  const cartItems = useCartStore((state) => state.cartItems)
+  const cartItems = useAppSelector(selectCart)
   return (
     <div className='flex flex-col space-y-2'>
       {cartItems && cartItems.length === 0 && (

@@ -1,14 +1,15 @@
 'use client'
-import { useCartStore } from '@/store/cartState'
+import { cartActions, selectTotalQuantity } from '@/redux/features/cart-slice'
+import { useActionCreators, useAppSelector } from '@/redux/hooks'
 import { TrashIcon } from '@radix-ui/react-icons'
 import { Button } from '../ui/button'
 
 type Props = {}
 
 const CartHeader = (props: Props) => {
-  //const cartItems = useCartStore((state) => state.cartItems)
-  const clearCart = useCartStore((state) => state.clearCart)
-  const totalQuantity = useCartStore((state) => state.totalQuantity)
+  const actions = useActionCreators(cartActions)
+
+  const totalQuantity = useAppSelector(selectTotalQuantity)
   return (
     <div className='flex flex-row gap-8 items-center w-full'>
       <div className='relative '>
@@ -18,7 +19,7 @@ const CartHeader = (props: Props) => {
 
       <Button
         className='group mb-2'
-        onClick={() => clearCart()}
+        onClick={() => actions.clearCart()}
         variant={'ghost'}
         size={'icon'}
       >
